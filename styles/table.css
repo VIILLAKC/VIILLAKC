@@ -1,0 +1,136 @@
+h1{
+    font-size: 3rem;
+}
+
+h2{
+    font-size: 2rem;
+}
+
+h4{
+    font-size: 1.5rem;
+}
+
+p{
+    font-size: 1.2rem;
+}
+
+.navbar{
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+}
+
+.nav-container--top{
+    position: fixed;
+    bottom: calc(100% - 3rem);
+}
+
+.navbar div, .navbar ul, .nav-item{
+    width: 100%;
+}
+
+.navbar-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-tab-slider{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.2rem;
+    background: var(--blue-light);
+    transition: all 0.3s ease-in-out;
+}
+
+
+section.welcome{
+    flex-direction: row;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url("../assets/image/pexels-photo-start-min.jpeg") no-repeat center center/cover;
+}
+
+.welcome-text, .welcome-img {
+    max-width: 50%;
+}
+
+.arrow-btn{
+    bottom: -2.5rem;
+    width: 5rem;
+    height: 5rem;
+}
+
+.arrow-btn i{
+    font-size: 2rem;
+}
+
+.mobile-none{
+    display: flex;
+}
+
+section.about-me div{
+    display: flex;
+    margin: 1rem;
+    justify-content: center;
+}
+
+section.about-me div article{
+    width: 45%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+section.services{
+    height: 100vh;
+    justify-content: center;
+    margin-top: 0;
+}
+
+article.services-text{
+    margin-top: 3rem;
+}
+
+article.services-catalog{
+    height: 60%;
+    width: 100%;
+}
+
+.catalog-item{
+    width: 30%;
+    margin: 1rem;
+}
+
+section.gallery h2{
+    padding-top: 2rem;
+}
+
+section .gallery-projects{
+    justify-content: space-evenly;
+}
+
+section .gallery-projects img.project{
+    width: 20%;
+    margin: 1.5rem;
+}
+
+section.technologies div{
+    animation: scroll 35s linear infinite;
+}
+
+section.goodbye{
+    flex-direction: row;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url("../assets/image/pexels-photo-end.jpeg") no-repeat center center/cover;
+    padding: 0 2rem;
+}
+
+section.goodbye article {
+    width: 20rem;
+    height: 20rem;
+    margin-left: 2rem;
+}

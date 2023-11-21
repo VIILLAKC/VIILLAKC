@@ -1,5 +1,5 @@
-var navContainer = document.querySelector('.nav-container');
-var navTabs = document.querySelectorAll('.nav-tab');
+var navContainer = document.querySelector('.navbar');
+var navTabs = document.querySelectorAll('.nav-item');
 var navTabSlider = document.querySelector('.nav-tab-slider');
 var navContainerTop = document.querySelector('.nav-container--top');
 var sections = document.querySelectorAll('section');

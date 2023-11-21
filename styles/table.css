@@ -14,6 +14,42 @@ p{
     font-size: 1.2rem;
 }
 
+.navbar{
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+}
+
+.nav-container--top{
+    position: fixed;
+    bottom: calc(100% - 3rem);
+}
+
+.navbar div, .navbar ul, .nav-item{
+    width: 100%;
+}
+
+.navbar-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-tab-slider{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.2rem;
+    background: var(--blue-light);
+    transition: all 0.3s ease-in-out;
+}
+
+
 section.welcome{
     flex-direction: row;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url("https://images.pexels.com/photos/1229042/pexels-photo-1229042.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1") no-repeat center center/cover;
@@ -68,6 +104,10 @@ article.services-catalog{
 .catalog-item{
     width: 30%;
     margin: 1rem;
+}
+
+section.gallery h2{
+    padding-top: 2rem;
 }
 
 section .gallery-projects img.project{

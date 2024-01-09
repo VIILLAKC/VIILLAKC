@@ -43,3 +43,15 @@ window.addEventListener('scroll', function() {
     }
 });
 
+
+
+galleryProjects = document.querySelector('.gallery-projects');
+projects.addEventListener('click', function(e) {
+    if (e.target.classList.contains('project')) {
+        if (e.target.getAttribute('href') !== null) {
+            window.open(e.target.getAttribute('href'), '_blank');
+        } else {
+            alert('Coming soon!');
+        }
+    }
+});

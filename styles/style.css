@@ -247,7 +247,7 @@ section.goodbye article i{
 section.goodbye .badges img{
     width: 3rem;
     aspect-ratio: 1/1;
-    margin: 1rem;
+    margin: 0.5rem;
 }
 
 .animate{

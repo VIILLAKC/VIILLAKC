@@ -9,7 +9,7 @@ const tr = useTranslations(lang);
 const p = await getProfile();
 ---
 
-<Section id="about" altitude={tr('alt.about')} title={tr('about.title')}>
+<Section id="about" landmark="ice-giant" altitude={tr('alt.about')} title={tr('about.title')}>
   <div class="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
     <div class="space-y-5 text-lg text-ink/90">
       {p.summary.map((paragraph) => <p>{t(paragraph, lang)}</p>)}

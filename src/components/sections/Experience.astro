@@ -9,7 +9,7 @@ const tr = useTranslations(lang);
 const jobs = await getExperience();
 ---
 
-<Section id="experience" altitude={tr('alt.experience')} title={tr('experience.title')}>
+<Section id="experience" landmark="gas-giant" altitude={tr('alt.experience')} title={tr('experience.title')}>
   <ol class="relative ml-2 border-l border-line sm:ml-4">
     {
       jobs.map(({ data: j }) => (

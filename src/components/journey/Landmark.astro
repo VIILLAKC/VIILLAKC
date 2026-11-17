@@ -1,0 +1,257 @@
+---
+/**
+ * Hitos del descenso: lo que se ve "por la ventana" en cada tramo del viaje,
+ * del espacio profundo a la Tierra. CSS puro (gradientes, sin imágenes ni JS).
+ *
+ * El paralaje usa animaciones ligadas al scroll (`animation-timeline: view()`), que corren
+ * en el compositor. Sin soporte o con reduced motion, el hito queda estático.
+ */
+export type LandmarkKind = 'galaxy' | 'ice-giant' | 'gas-giant' | 'asteroids' | 'moon';
+
+interface Props {
+  kind: LandmarkKind;
+}
+const { kind } = Astro.props;
+
+// Asteroides con posición, tamaño, forma y profundidad fijas (estables entre builds).
+const rocks = [
+  { x: 4, y: 12, s: 34, d: 34, dx: 10, r: 140, b: '42% 58% 37% 63% / 51% 39% 61% 49%' },
+  { x: 18, y: 58, s: 14, d: 18, dx: 6, r: -90, b: '61% 39% 52% 48% / 44% 57% 43% 56%' },
+  { x: 30, y: 24, s: 22, d: 26, dx: 8, r: 200, b: '38% 62% 63% 37% / 41% 44% 56% 59%' },
+  { x: 46, y: 70, s: 48, d: 44, dx: 12, r: -160, b: '55% 45% 40% 60% / 60% 42% 58% 40%' },
+  { x: 57, y: 8, s: 12, d: 14, dx: 4, r: 120, b: '47% 53% 58% 42% / 52% 61% 39% 48%' },
+  { x: 68, y: 46, s: 28, d: 30, dx: -8, r: 180, b: '63% 37% 45% 55% / 39% 55% 45% 61%' },
+  { x: 80, y: 18, s: 18, d: 22, dx: -6, r: -120, b: '41% 59% 52% 48% / 58% 38% 62% 42%' },
+  { x: 88, y: 64, s: 38, d: 38, dx: -10, r: 150, b: '50% 50% 36% 64% / 47% 59% 41% 53%' },
+  { x: 95, y: 36, s: 10, d: 12, dx: -4, r: 90, b: '58% 42% 49% 51% / 43% 52% 48% 57%' },
+  { x: 38, y: 92, s: 16, d: 20, dx: 5, r: -200, b: '44% 56% 60% 40% / 55% 46% 54% 45%' },
+];
+---
+
+<div class:list={['landmark', `landmark--${kind}`]} aria-hidden="true">
+  {kind === 'galaxy' && (
+    <span class="lm-item galaxy">
+      <span class="galaxy-arms" />
+      <span class="galaxy-core" />
+    </span>
+  )}
+  {kind === 'ice-giant' && (
+    <span class="lm-item ice-giant">
+      <span class="ice-ring" />
+    </span>
+  )}
+  {kind === 'gas-giant' && (
+    <span class="lm-item gas-giant">
+      <span class="gg-ring gg-ring-back" />
+      <span class="gg-body" />
+      <span class="gg-ring gg-ring-front" />
+    </span>
+  )}
+  {kind === 'asteroids' && (
+    <>
+      {rocks.map((r) => (
+        <span
+          class="lm-item rock"
+          style={`--x:${r.x}%;--y:${r.y}%;--s:${r.s}px;--d:${r.d}vh;--dx:${r.dx}vw;--r:${r.r}deg;border-radius:${r.b}`}
+        />
+      ))}
+      <span class="lm-item mars" />
+    </>
+  )}
+  {kind === 'moon' && <span class="lm-item moon" />}
+</div>
+
+<style>
+  /* Capa detrás del contenido de la sección; recorta solo en horizontal para no generar scroll lateral. */
+  .landmark {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow-x: clip;
+    pointer-events: none;
+  }
+  .lm-item {
+    position: absolute;
+    display: block;
+  }
+
+  /* ---- Espacio profundo: galaxia espiral lejana ---- */
+  .galaxy {
+    right: 6%;
+    top: 14%;
+    width: clamp(14rem, 34vw, 30rem);
+    aspect-ratio: 2.6;
+    rotate: -24deg;
+    opacity: 0.75;
+    --depth: 6vh;
+  }
+  .galaxy-arms,
+  .galaxy-core {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+  }
+  .galaxy-arms {
+    background:
+      radial-gradient(ellipse at center, transparent 22%, rgb(139 123 255 / 0.22) 34%, transparent 46%),
+      radial-gradient(ellipse at center, transparent 40%, rgb(94 230 255 / 0.12) 52%, transparent 66%),
+      radial-gradient(ellipse at center, rgb(190 170 255 / 0.18), transparent 70%);
+  }
+  .galaxy-core {
+    inset: 34% 40%;
+    background: radial-gradient(closest-side, rgb(255 244 228 / 0.95), rgb(255 214 170 / 0.4) 45%, transparent);
+  }
+
+  /* ---- Sistema solar exterior: gigante de hielo ---- */
+  .ice-giant {
+    right: -3rem;
+    top: 18%;
+    width: clamp(8rem, 18vw, 15rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      linear-gradient(115deg, transparent 38%, rgb(2 4 16 / 0.78) 78%),
+      repeating-linear-gradient(-8deg, transparent 0 11%, rgb(255 255 255 / 0.05) 11% 15%),
+      radial-gradient(circle at 34% 30%, #c8efff, #5c9be6 38%, #23489a 72%, #0c1c48);
+    box-shadow: 0 0 60px -10px rgb(94 160 255 / 0.55);
+    --depth: 14vh;
+  }
+  .ice-ring {
+    position: absolute;
+    inset: 44% -22%;
+    border-radius: 50%;
+    border: 1px solid rgb(180 220 255 / 0.28);
+    rotate: -14deg;
+  }
+
+  /* ---- Gigantes gaseosos: planeta con bandas y anillos, asomando por el borde ---- */
+  .gas-giant {
+    left: clamp(-22rem, -28vw, -9rem);
+    top: 10%;
+    width: clamp(18rem, 46vw, 40rem);
+    aspect-ratio: 1;
+    --depth: 22vh;
+  }
+  .gg-body {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 70% 38%, transparent 30%, rgb(2 4 16 / 0.15) 52%, rgb(2 4 16 / 0.82) 76%),
+      repeating-linear-gradient(
+        10deg,
+        #e6cfa2 0 5%,
+        #c99c66 5% 8%,
+        #edd9b4 8% 13%,
+        #b9834f 13% 16%,
+        #dcbc8a 16% 22%,
+        #a8744a 22% 24%
+      );
+    box-shadow: 0 0 90px -20px rgb(255 200 140 / 0.45);
+  }
+  .gg-ring {
+    position: absolute;
+    left: -32%;
+    right: -32%;
+    top: 41%;
+    bottom: 41%;
+    border-radius: 50%;
+    rotate: -14deg;
+    background: radial-gradient(
+      closest-side,
+      transparent 56%,
+      rgb(236 214 172 / 0.55) 60%,
+      rgb(200 168 120 / 0.2) 70%,
+      rgb(236 214 172 / 0.45) 77%,
+      rgb(200 168 120 / 0.15) 86%,
+      transparent 92%
+    );
+  }
+  .gg-ring-back {
+    z-index: 0;
+  }
+  .gg-ring-front {
+    z-index: 2;
+    clip-path: inset(50% 0 0 0);
+  }
+
+  /* ---- Cinturón de asteroides y Marte ---- */
+  .rock {
+    left: var(--x);
+    top: var(--y);
+    width: var(--s);
+    aspect-ratio: 1.15;
+    background: radial-gradient(circle at 34% 30%, #b3aa9e, #6a625a 50%, #2c2824 85%);
+    box-shadow: inset -3px -4px 6px rgb(0 0 0 / 0.45);
+    opacity: 0.85;
+  }
+  .mars {
+    right: 8%;
+    bottom: 6%;
+    width: clamp(4.5rem, 9vw, 7rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      linear-gradient(120deg, transparent 40%, rgb(2 4 16 / 0.75) 82%),
+      radial-gradient(circle at 60% 62%, rgb(90 30 12 / 0.45) 0 12%, transparent 13%),
+      radial-gradient(circle at 34% 30%, #f0a070, #c0532a 45%, #6a2410 80%);
+    box-shadow: 0 0 40px -8px rgb(255 120 70 / 0.5);
+    --depth: 16vh;
+  }
+
+  /* ---- Órbita terrestre: la Luna ---- */
+  .moon {
+    right: -2rem;
+    top: 2%;
+    width: clamp(9rem, 20vw, 16rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      linear-gradient(125deg, transparent 42%, rgb(2 4 16 / 0.8) 84%),
+      radial-gradient(circle at 30% 40%, rgb(70 76 96 / 0.55) 0 9%, transparent 10%),
+      radial-gradient(circle at 55% 24%, rgb(70 76 96 / 0.45) 0 6%, transparent 7%),
+      radial-gradient(circle at 48% 60%, rgb(70 76 96 / 0.5) 0 12%, transparent 13%),
+      radial-gradient(circle at 24% 70%, rgb(70 76 96 / 0.4) 0 5%, transparent 6%),
+      radial-gradient(circle at 36% 30%, #f1f3fa, #b7bccd 45%, #6c7186 80%);
+    box-shadow: 0 0 70px -12px rgb(220 228 255 / 0.4);
+    --depth: 18vh;
+  }
+
+  /* En móvil los hitos quedan detrás del texto: más discretos. */
+  @media (max-width: 767px) {
+    .landmark {
+      opacity: 0.55;
+    }
+  }
+
+  /* Paralaje: cada hito recorre el viewport más lento o más rápido que el scroll según su profundidad. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .lm-item {
+        animation: drift linear both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+      .rock {
+        animation-name: tumble;
+      }
+    }
+  }
+  @keyframes drift {
+    from {
+      transform: translate3d(0, var(--depth, 10vh), 0);
+    }
+    to {
+      transform: translate3d(0, calc(var(--depth, 10vh) * -1), 0);
+    }
+  }
+  @keyframes tumble {
+    from {
+      transform: translate3d(0, var(--d), 0) rotate(0deg);
+    }
+    to {
+      transform: translate3d(var(--dx), calc(var(--d) * -1), 0) rotate(var(--r));
+    }
+  }
+</style>

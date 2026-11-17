@@ -5,7 +5,7 @@ Todo lo que se muestra en el sitio sale de estos JSON. No hace falta tocar compo
 | Archivo | Qué contiene |
 |---|---|
 | `profile.json` | Nombre, headline, bio, métricas del hero, idiomas, educación y enlaces de contacto (una sola entrada con `"id": "main"`) |
-| `services.json` | Especialidades (`evidence`: logros medibles; `practices`: cómo trabajo). Cada una se dibuja como un **planeta** |
+| `services.json` | Especialidades (`evidence`: logros medibles; `practices`: cómo trabajo). Cada una se dibuja como un **satélite** en órbita terrestre |
 | `projects.json` | Casos de éxito (`case-study`) y proyectos personales (`lab`) |
 | `experience.json` | Timeline laboral |
 | `skills.json` | Catálogo de tecnologías. Los `stack` de los demás archivos usan sus `id` |

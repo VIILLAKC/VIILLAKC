@@ -1,0 +1,26 @@
+---
+/** GitHub Pages sirve este archivo para cualquier ruta inexistente bajo /VIILLAKC/ (sin idioma: bilingüe). */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import Starfield from '@/components/journey/Starfield.astro';
+import AstronautLottie from '@/components/journey/AstronautLottie.astro';
+import ButtonLink from '@/components/ui/ButtonLink.astro';
+import { localizePath } from '@/i18n/ui';
+---
+
+<BaseLayout title="404 · Israel Villa" description="Página no encontrada · Page not found" noindex>
+  <Starfield />
+  <SiteHeader />
+  <main id="main" class="relative z-10 grid min-h-dvh place-items-center px-4 py-28 text-center">
+    <div class="flex flex-col items-center">
+      <div class="w-40 sm:w-52" aria-hidden="true"><AstronautLottie role="lander" /></div>
+      <p class="mt-4 font-display text-sm font-semibold tracking-[0.3em] text-signal uppercase">404</p>
+      <h1 class="mt-3 text-4xl font-bold text-balance sm:text-5xl">Te perdiste en el espacio</h1>
+      <p class="mt-3 text-lg text-muted" lang="en">Lost in space: this page doesn't exist.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <ButtonLink href={localizePath('', 'es')} iconEnd="arrow-right">Volver al inicio</ButtonLink>
+        <ButtonLink href={localizePath('', 'en')} variant="ghost" iconEnd="arrow-right"><span lang="en">Back home</span></ButtonLink>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

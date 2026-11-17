@@ -1,0 +1,33 @@
+---
+/**
+ * Astronauta del sitio anterior (animación Lottie en public/lottie/astronaut.json).
+ * El contenedor se reserva vacío y la animación se carga en segundo plano tras la carga
+ * de la página (ver scripts/astronaut-lottie.ts), así no afecta LCP ni el bundle inicial.
+ */
+interface Props {
+  /** Qué hace mientras no se ve: el acompañante se pausa al aterrizar; el aterrizado, fuera de pantalla. */
+  role: 'companion' | 'lander';
+}
+const { role } = Astro.props;
+---
+
+<div class="astro-lottie" data-lottie-astronaut={role}></div>
+
+<script>
+  import '../../scripts/astronaut-lottie.ts';
+</script>
+
+<style>
+  .astro-lottie {
+    aspect-ratio: 1;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .astro-lottie:global(.is-ready) {
+    opacity: 1;
+  }
+  .astro-lottie :global(svg) {
+    display: block;
+  }
+</style>

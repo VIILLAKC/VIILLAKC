@@ -1,0 +1,79 @@
+[
+  {
+    "id": "automatizacion-procesos",
+    "order": 1,
+    "title": { "es": "Automatización de procesos", "en": "Process automation" },
+    "tagline": {
+      "es": "Elimina el trabajo manual repetitivo y conecta tus sistemas.",
+      "en": "Remove repetitive manual work and connect your systems."
+    },
+    "description": {
+      "es": "Diseño flujos automáticos con n8n y Python que mueven datos entre tus herramientas, generan reportes y disparan alertas sin intervención humana. Cada flujo queda documentado, monitoreado y listo para crecer.",
+      "en": "I design automated workflows with n8n and Python that move data between your tools, generate reports and trigger alerts with no manual steps. Every workflow is documented, monitored and ready to scale."
+    },
+    "outcomes": [
+      { "es": "Horas de trabajo manual recuperadas cada semana", "en": "Hours of manual work recovered every week" },
+      { "es": "Menos errores de captura y copia entre sistemas", "en": "Fewer copy-paste and data-entry errors" },
+      { "es": "Reportes que llegan solos y a tiempo", "en": "Reports that arrive on their own, on time" }
+    ],
+    "deliverables": [
+      { "es": "Diagnóstico y mapa del proceso", "en": "Process assessment and map" },
+      { "es": "Flujos en n8n / Python en producción", "en": "n8n / Python workflows in production" },
+      { "es": "Monitoreo y alertas de fallos", "en": "Failure monitoring and alerts" },
+      { "es": "Documentación y capacitación", "en": "Documentation and handover training" }
+    ],
+    "stack": ["n8n", "python", "fastapi", "docker", "postgresql"],
+    "planet": { "color": "#ff9a5a", "glow": "#ffcf8a", "size": "md", "ring": false }
+  },
+  {
+    "id": "plataforma-datos",
+    "order": 2,
+    "title": { "es": "Pipelines y plataforma de datos", "en": "Data pipelines & platform" },
+    "tagline": {
+      "es": "Datos confiables, gobernados y listos para decidir.",
+      "en": "Reliable, governed data that's ready for decisions."
+    },
+    "description": {
+      "es": "Construyo pipelines ETL/ELT idempotentes sobre un lakehouse con arquitectura medallion (Bronze, Silver, Gold), con calidad de datos, orquestación y monitoreo. Desde una base de datos aislada hasta millones de registros por corrida.",
+      "en": "I build idempotent ETL/ELT pipelines on a medallion lakehouse (Bronze, Silver, Gold) with data quality checks, orchestration and monitoring. From a single database to millions of records per run."
+    },
+    "outcomes": [
+      { "es": "Una sola fuente de verdad para tu negocio", "en": "A single source of truth for your business" },
+      { "es": "Cargas reproducibles y auditables", "en": "Reproducible, auditable loads" },
+      { "es": "Procesos que escalan sin reescribirse", "en": "Processes that scale without rewrites" }
+    ],
+    "deliverables": [
+      { "es": "Arquitectura del lakehouse", "en": "Lakehouse architecture" },
+      { "es": "Pipelines orquestados con Prefect", "en": "Prefect-orchestrated pipelines" },
+      { "es": "Validaciones de calidad de datos", "en": "Data quality validations" },
+      { "es": "Monitoreo de ejecuciones", "en": "Run monitoring" }
+    ],
+    "stack": ["pyspark", "databricks", "delta-lake", "prefect", "sql", "aws"],
+    "planet": { "color": "#5ee6ff", "glow": "#9ff2ff", "size": "lg", "ring": true }
+  },
+  {
+    "id": "ia-aplicada",
+    "order": 3,
+    "title": { "es": "IA aplicada y GenAI", "en": "Applied AI & GenAI" },
+    "tagline": {
+      "es": "Asistentes y modelos que trabajan sobre tus propios datos.",
+      "en": "Assistants and models that work on your own data."
+    },
+    "description": {
+      "es": "Llevo la IA del prototipo a producción: asistentes que responden con tus datos (RAG con pgvector), modelos de clasificación y predicción, y visión por computadora/OCR para digitalizar documentos e inspección.",
+      "en": "I take AI from prototype to production: assistants that answer from your data (RAG with pgvector), classification and prediction models, and computer vision/OCR for document digitization and inspection."
+    },
+    "outcomes": [
+      { "es": "Respuestas sobre tus KPIs en lenguaje natural", "en": "Natural-language answers about your KPIs" },
+      { "es": "Decisiones priorizadas con modelos predictivos", "en": "Decisions prioritized with predictive models" },
+      { "es": "Documentos e imágenes convertidos en datos", "en": "Documents and images turned into data" }
+    ],
+    "deliverables": [
+      { "es": "Prueba de concepto medible", "en": "Measurable proof of concept" },
+      { "es": "Modelo o asistente desplegado", "en": "Deployed model or assistant" },
+      { "es": "Evaluación y métricas de calidad", "en": "Evaluation and quality metrics" }
+    ],
+    "stack": ["llm-apis", "rag", "pgvector", "sentence-transformers", "xgboost", "yolo", "ocr"],
+    "planet": { "color": "#8b7bff", "glow": "#c3b8ff", "size": "md", "ring": true }
+  }
+]

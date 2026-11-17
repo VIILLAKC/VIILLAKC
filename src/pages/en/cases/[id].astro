@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CaseDetail from '@/components/projects/CaseDetail.astro';
+import { getProjects } from '@/lib/content';
+import { getLangFromUrl, t } from '@/i18n/ui';
+import { caseJsonLd } from '@/lib/structured-data';
+
+export const getStaticPaths = (async () => {
+  const cases = await getProjects('case-study');
+  return cases.map((project) => ({ params: { id: project.id }, props: { project } }));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const title = t(project.data.title, lang);
+---
+
+<BaseLayout
+  title={`${title} · Israel Villa`}
+  description={t(project.data.summary, lang)}
+  ogType="article"
+  ogImage={project.id}
+  ogImageAlt={title}
+  jsonLd={await caseJsonLd(project, lang)}
+>
+  <CaseDetail project={project} />
+</BaseLayout>

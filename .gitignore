@@ -95,3 +95,14 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,windows,linux
+
+### Astro ###
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.lighthouseci/
+lighthouse-reports/
+.claude/launch.json

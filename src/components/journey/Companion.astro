@@ -1,0 +1,85 @@
+---
+/**
+ * Astronauta que acompaña el scroll. Tres envolturas para no mezclar transiciones:
+ *  .companion       → posición según el scroll (variables de journey.ts, sin transición)
+ *  .companion-land  → se aleja y desvanece al aterrizar (con transición)
+ *  .companion-bob   → flotación suave en bucle
+ */
+import AstronautLottie from './AstronautLottie.astro';
+---
+
+<div class="companion" data-companion aria-hidden="true">
+  <div class="companion-land">
+    <div class="companion-bob">
+      <AstronautLottie role="companion" />
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../../scripts/journey.ts';
+</script>
+
+<style>
+  .companion {
+    position: fixed;
+    z-index: 30;
+    right: 4px;
+    bottom: 8px;
+    width: 68px;
+    pointer-events: none;
+    /* En móvil aparece al salir del hero, para no tapar los botones. */
+    opacity: clamp(0, (var(--h, 0) - 0.55) * 3, 1);
+    transform: rotate(calc(var(--flame, 0) * var(--dir, 1) * -14deg));
+    filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.45));
+  }
+
+  @media (min-width: 1280px) {
+    .companion {
+      top: 36vh;
+      bottom: auto;
+      /* En el margen derecho, sin invadir el contenido (72rem) cuando cabe. */
+      right: max(0.5rem, calc((100vw - 72rem) / 2 - 136px));
+      width: 128px;
+      opacity: 1;
+      /* Grande junto al hero; luego se encoge y zigzaguea suavemente en el margen derecho. */
+      transform: translate3d(
+          calc((1 - var(--h, 0)) * -8vw),
+          calc((1 - var(--h, 0)) * 10vh + sin(calc(var(--p, 0) * 21rad)) * 8vh),
+          0
+        )
+        rotate(calc(sin(calc(var(--p, 0) * 15rad)) * 12deg + var(--flame, 0) * var(--dir, 1) * -18deg))
+        scale(calc(1 + (1 - var(--h, 0)) * 0.75));
+    }
+  }
+
+  .companion-land {
+    transition:
+      opacity 0.6s ease,
+      transform 0.9s var(--ease-out-expo);
+  }
+  .companion:global(.is-landed) .companion-land {
+    opacity: 0;
+    transform: translateY(30vh) scale(0.6);
+  }
+
+  .companion-bob {
+    animation: bob 4.5s ease-in-out infinite alternate;
+  }
+  @keyframes bob {
+    from {
+      transform: translateY(-6px) rotate(-3deg);
+    }
+    to {
+      transform: translateY(6px) rotate(3deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .companion,
+    .companion-bob {
+      transform: none !important;
+      animation: none;
+    }
+  }
+</style>

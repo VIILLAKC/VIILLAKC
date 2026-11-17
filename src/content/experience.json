@@ -1,0 +1,87 @@
+[
+  {
+    "id": "banca-data-genai",
+    "order": 1,
+    "role": { "es": "Data Developer & GenAI", "en": "Data Developer & GenAI" },
+    "org": { "es": "Grupo financiero internacional", "en": "International financial group" },
+    "location": { "es": "Ciudad de México", "en": "Mexico City" },
+    "start": "2026-11",
+    "end": null,
+    "highlights": [],
+    "stack": []
+  },
+  {
+    "id": "telecom-senior-de",
+    "order": 2,
+    "role": { "es": "Senior Data Engineer", "en": "Senior Data Engineer" },
+    "org": { "es": "Empresa global de telecomunicaciones", "en": "Global telecommunications company" },
+    "location": { "es": "Ciudad de México", "en": "Mexico City" },
+    "start": "2024",
+    "end": "2026-11",
+    "highlights": [
+      {
+        "es": "Plataforma de datos con Databricks, PySpark, Delta Lake y Unity Catalog: ~30 pipelines productivos propios dentro de 80+ entregados por el equipo.",
+        "en": "Data platform on Databricks, PySpark, Delta Lake and Unity Catalog: ~30 production pipelines of my own out of 80+ shipped by the team."
+      },
+      {
+        "es": "Asignación reproducible de ~10 millones de cuentas por corrida en ~5 minutos, con tolerancia validada de ±0.5 pp.",
+        "en": "Reproducible allocation of ~10 million accounts per run in ~5 minutes, with a validated ±0.5 pp tolerance."
+      },
+      {
+        "es": "Dos soluciones de analítica financiera con GenAI en producción; una de ellas, de punta a punta, usada por vicepresidentes.",
+        "en": "Two GenAI-assisted financial analytics solutions in production; one end-to-end, used by vice presidents."
+      },
+      {
+        "es": "Migración crítica de estados de cuenta a pipelines híbridos en ~1.5 meses, con un ahorro reportado de 177,141 USD mensuales.",
+        "en": "Critical account-statement migration to hybrid pipelines in ~1.5 months, with reported savings of USD 177,141 per month."
+      },
+      {
+        "es": "Liderazgo técnico de 4 ingenieros y mentoría en Python a 6.",
+        "en": "Technical lead for 4 engineers; Python mentor to 6."
+      }
+    ],
+    "stack": ["python", "sql", "pyspark", "databricks", "delta-lake", "unity-catalog", "prefect", "fastapi", "pgvector", "llm-apis"]
+  },
+  {
+    "id": "industrial-data-analytics",
+    "order": 3,
+    "role": { "es": "Data Analytics Engineer", "en": "Data Analytics Engineer" },
+    "org": { "es": "Empresa de automatización industrial", "en": "Industrial automation company" },
+    "start": "2023",
+    "end": "2024",
+    "highlights": [
+      {
+        "es": "Automaticé el alta de clientes single-tenant: de 2–3 días a ~15 minutos en 5 entornos empresariales.",
+        "en": "Automated single-tenant client onboarding: from 2–3 days to ~15 minutes across 5 enterprise environments."
+      },
+      {
+        "es": "Visión por computadora (YOLO/OCR) y métricas en tiempo real que alimentan el OEE de planta.",
+        "en": "Computer vision (YOLO/OCR) and real-time metrics feeding plant OEE."
+      },
+      {
+        "es": "APIs con Python, FastAPI y Node.js, con Docker y CI/CD.",
+        "en": "APIs with Python, FastAPI and Node.js, shipped with Docker and CI/CD."
+      }
+    ],
+    "stack": ["python", "aws", "fastapi", "nodejs", "docker", "cicd", "yolo", "ocr"]
+  },
+  {
+    "id": "healthtech-ai-dev",
+    "order": 4,
+    "role": { "es": "Artificial Intelligence Developer", "en": "Artificial Intelligence Developer" },
+    "org": { "es": "Health-tech de imagen médica", "en": "Medical-imaging health-tech" },
+    "start": "2022",
+    "end": "2023",
+    "highlights": [
+      {
+        "es": "Cinco microservicios para procesar imágenes médicas DICOM; tiempo de respuesta 3x más rápido.",
+        "en": "Five microservices for DICOM medical-image processing; 3x faster response time."
+      },
+      {
+        "es": "OCR y visión por computadora sobre estudios médicos con ~80% de precisión.",
+        "en": "OCR and computer vision on medical studies with ~80% precision."
+      }
+    ],
+    "stack": ["python", "django", "fastapi", "redis", "celery", "ocr"]
+  }
+]

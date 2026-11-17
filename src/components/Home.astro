@@ -1,0 +1,36 @@
+---
+import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
+import Starfield from './journey/Starfield.astro';
+import Companion from './journey/Companion.astro';
+import Altimeter from './journey/Altimeter.astro';
+import Earth from './journey/Earth.astro';
+import Hero from './sections/Hero.astro';
+import About from './sections/About.astro';
+import Services from './sections/Services.astro';
+import Projects from './sections/Projects.astro';
+import Experience from './sections/Experience.astro';
+import Stack from './sections/Stack.astro';
+import Contact from './sections/Contact.astro';
+---
+
+<Starfield />
+<SiteHeader />
+<Altimeter />
+<Companion />
+
+<main id="main" class="journey relative z-10">
+  <Hero />
+  <About />
+  <Services />
+  <Projects />
+  <Experience />
+  <Stack />
+  <div class="landing relative overflow-hidden">
+    <Contact />
+    <Earth />
+  </div>
+</main>
+<div class="relative z-10 -mt-20 h-20">
+  <SiteFooter />
+</div>

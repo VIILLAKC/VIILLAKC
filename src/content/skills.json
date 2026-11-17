@@ -1,0 +1,51 @@
+[
+  { "id": "python", "name": "Python", "category": "language", "icon": "python", "core": true },
+  { "id": "sql", "name": "SQL", "category": "language", "core": true },
+  { "id": "c", "name": "C", "category": "language" },
+  { "id": "typescript", "name": "TypeScript", "category": "language", "icon": "typescript" },
+  { "id": "java", "name": "Java", "category": "language", "icon": "java" },
+  { "id": "ruby", "name": "Ruby", "category": "language", "icon": "ruby" },
+
+  { "id": "pyspark", "name": "PySpark", "category": "data", "core": true },
+  { "id": "databricks", "name": "Databricks", "category": "data", "core": true },
+  { "id": "delta-lake", "name": "Delta Lake", "category": "data", "core": true },
+  { "id": "unity-catalog", "name": "Unity Catalog", "category": "data" },
+  { "id": "medallion", "name": "Medallion", "category": "data" },
+  { "id": "numpy", "name": "NumPy", "category": "data" },
+  { "id": "parquet", "name": "Parquet", "category": "data" },
+  { "id": "streamlit", "name": "Streamlit", "category": "data" },
+
+  { "id": "prefect", "name": "Prefect", "category": "orchestration", "core": true },
+
+  { "id": "postgresql", "name": "PostgreSQL", "category": "database", "icon": "postgresql", "core": true },
+  { "id": "pgvector", "name": "pgvector", "category": "database" },
+  { "id": "sql-server", "name": "SQL Server", "category": "database", "icon": "microsoft-sql" },
+  { "id": "mongodb", "name": "MongoDB", "category": "database", "icon": "mongodb" },
+  { "id": "redis", "name": "Redis", "category": "database" },
+  { "id": "informix", "name": "Informix", "category": "database", "icon": "informix" },
+
+  { "id": "aws", "name": "AWS (S3 · EC2 · IAM)", "category": "cloud-devops", "icon": "aws", "core": true },
+  { "id": "docker", "name": "Docker", "category": "cloud-devops", "icon": "docker", "core": true },
+  { "id": "cicd", "name": "CI/CD", "category": "cloud-devops" },
+  { "id": "jenkins", "name": "Jenkins", "category": "cloud-devops", "icon": "jenkins" },
+
+  { "id": "llm-apis", "name": "LLM APIs", "category": "ml-ai", "core": true },
+  { "id": "rag", "name": "RAG", "category": "ml-ai" },
+  { "id": "sentence-transformers", "name": "Sentence Transformers", "category": "ml-ai" },
+  { "id": "catboost", "name": "CatBoost", "category": "ml-ai" },
+  { "id": "xgboost", "name": "XGBoost", "category": "ml-ai" },
+  { "id": "scikit-learn", "name": "scikit-learn", "category": "ml-ai" },
+  { "id": "yolo", "name": "YOLO", "category": "ml-ai" },
+  { "id": "ocr", "name": "OCR", "category": "ml-ai" },
+
+  { "id": "n8n", "name": "n8n", "category": "automation", "core": true },
+  { "id": "fastapi", "name": "FastAPI", "category": "automation", "icon": "fastapi", "core": true },
+  { "id": "celery", "name": "Celery", "category": "automation" },
+  { "id": "nodejs", "name": "Node.js", "category": "automation" },
+
+  { "id": "django", "name": "Django", "category": "web", "icon": "django" },
+  { "id": "flask", "name": "Flask", "category": "web", "icon": "flask" },
+  { "id": "react", "name": "React", "category": "web", "icon": "react" },
+  { "id": "angular", "name": "Angular", "category": "web", "icon": "angular" },
+  { "id": "html-css", "name": "HTML & CSS", "category": "web" }
+]

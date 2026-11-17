@@ -1,0 +1,17 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/ui';
+import { getProfile } from '@/lib/content';
+
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+const profile = await getProfile();
+---
+
+<!-- Se dibuja encima de la Tierra (ver Home.astro). -->
+<!-- Cada texto lleva fondo propio: sobre la Tierra el contraste no depende del color del océano. -->
+<footer class="flex h-full items-center text-sm text-ink">
+  <div class="container-page flex flex-col items-center justify-between gap-1 sm:flex-row">
+    <p class="rounded-full bg-void/70 px-3 py-1 backdrop-blur-sm">© {new Date().getFullYear()} {profile.name}</p>
+    <p class="rounded-full bg-void/70 px-3 py-1 backdrop-blur-sm">{tr('footer.made')}</p>
+  </div>
+</footer>

@@ -1,0 +1,39 @@
+---
+import Section from '../ui/Section.astro';
+import Icon from '../ui/Icon.astro';
+import { getLangFromUrl, useTranslations, t } from '@/i18n/ui';
+import { getProfile } from '@/lib/content';
+
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+const p = await getProfile();
+---
+
+<Section id="about" altitude={tr('alt.about')} title={tr('about.title')}>
+  <div class="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+    <div class="space-y-5 text-lg text-ink/90">
+      {p.summary.map((paragraph) => <p>{t(paragraph, lang)}</p>)}
+
+      <div class="flex flex-wrap gap-x-8 gap-y-3 pt-4 text-sm text-muted">
+        <p class="flex items-center gap-2">
+          <Icon name="pin" size={16} class="text-signal" />
+          {t(p.location, lang)}
+        </p>
+        <p>
+          {tr('about.languages')}: {p.languages.map((l) => `${t(l.name, lang)} (${t(l.level, lang)})`).join(' · ')}
+        </p>
+      </div>
+    </div>
+
+    <ul class="grid grid-cols-2 gap-3 self-start sm:gap-4">
+      {
+        p.stats.map((s) => (
+          <li class="rounded-2xl border border-line bg-white/[0.03] p-5 sm:p-6">
+            <p class="font-display text-3xl font-bold text-ink sm:text-4xl">{s.value}</p>
+            <p class="mt-1 text-sm text-muted">{t(s.label, lang)}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Section>

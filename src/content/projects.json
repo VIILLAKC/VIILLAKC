@@ -1,0 +1,237 @@
+[
+  {
+    "id": "asignacion-10m-cuentas",
+    "order": 1,
+    "kind": "case-study",
+    "featured": true,
+    "category": "data-engineering",
+    "title": { "es": "Asignación auditable de 10M de cuentas", "en": "Auditable allocation of 10M accounts" },
+    "summary": {
+      "es": "Algoritmo reproducible que reparte ~10 millones de cuentas por corrida entre agencias, en ~5 minutos y con tolerancia validada.",
+      "en": "Reproducible algorithm that distributes ~10 million accounts per run across agencies in ~5 minutes, within a validated tolerance."
+    },
+    "context": { "es": "Empresa global de telecomunicaciones", "en": "Global telecommunications company" },
+    "role": { "es": "Senior Data Engineer", "en": "Senior Data Engineer" },
+    "problem": {
+      "es": "Cada corrida debía repartir millones de cuentas en cobranza entre agencias externas respetando cuotas por número de cuentas y por monto. El proceso tenía que ser auditable: la misma entrada debía producir exactamente la misma asignación.",
+      "en": "Each run had to split millions of collection accounts across external agencies, honoring quotas by both account count and amount. The process had to be auditable: the same input had to produce exactly the same allocation."
+    },
+    "solution": {
+      "es": "Diseñé un algoritmo determinista por semilla en Python/NumPy, con la ruta crítica en una rutina compilada en C y paralelismo multinúcleo, orquestado con Prefect. La asignación se valida por separado en cuentas y en monto contra una tolerancia de ±0.5 puntos porcentuales.",
+      "en": "I designed a seed-deterministic algorithm in Python/NumPy, with the hot path in a compiled C routine and multi-core parallelism, orchestrated with Prefect. The allocation is validated separately by account count and by amount against a ±0.5 percentage-point tolerance."
+    },
+    "results": [
+      { "value": "~10M", "label": { "es": "cuentas por corrida", "en": "accounts per run" } },
+      { "value": "~5 min", "label": { "es": "por corrida", "en": "per run" } },
+      { "value": "±0.5 pp", "label": { "es": "tolerancia validada", "en": "validated tolerance" } }
+    ],
+    "stack": ["python", "numpy", "c", "prefect", "sql"]
+  },
+  {
+    "id": "migracion-estados-de-cuenta",
+    "order": 2,
+    "kind": "case-study",
+    "featured": true,
+    "category": "data-engineering",
+    "title": { "es": "Migración crítica de estados de cuenta", "en": "Critical account-statement migration" },
+    "summary": {
+      "es": "Sustitución de una aplicación licenciada por pipelines híbridos, entregada en ~1.5 meses dentro de una ventana de 3.",
+      "en": "Replaced a licensed application with hybrid pipelines, delivered in ~1.5 months within a 3-month window."
+    },
+    "context": { "es": "Empresa global de telecomunicaciones", "en": "Global telecommunications company" },
+    "role": { "es": "Líder técnico (2 ingenieros)", "en": "Tech lead (2 engineers)" },
+    "problem": {
+      "es": "La generación de estados de cuenta dependía de una aplicación licenciada costosa. Había que reemplazarla sin interrumpir un proceso crítico para el negocio.",
+      "en": "Account-statement generation depended on an expensive licensed application. It had to be replaced without disrupting a business-critical process."
+    },
+    "solution": {
+      "es": "Lideré a dos ingenieros junior para rediseñar el proceso como pipelines híbridos: Prefect on-premise para las fuentes internas y Databricks para el procesamiento a escala.",
+      "en": "I led two junior engineers to rebuild the process as hybrid pipelines: on-premise Prefect for internal sources and Databricks for processing at scale."
+    },
+    "results": [
+      { "value": "177K USD", "label": { "es": "ahorro mensual reportado", "en": "reported monthly savings" } },
+      { "value": "~1.5", "label": { "es": "meses de entrega (plazo: 3)", "en": "months to deliver (window: 3)" } }
+    ],
+    "stack": ["python", "prefect", "databricks", "pyspark", "sql"]
+  },
+  {
+    "id": "genai-analitica-financiera",
+    "order": 3,
+    "kind": "case-study",
+    "featured": true,
+    "category": "ai",
+    "title": { "es": "Analítica financiera para directivos con GenAI", "en": "GenAI financial analytics for executives" },
+    "summary": {
+      "es": "Asistente que responde preguntas de negocio sobre KPIs financieros con recuperación semántica; en producción y usado por vicepresidentes.",
+      "en": "Assistant that answers business questions about financial KPIs using semantic retrieval; in production and used by vice presidents."
+    },
+    "context": { "es": "Empresa global de telecomunicaciones", "en": "Global telecommunications company" },
+    "role": { "es": "Desarrollo end-to-end", "en": "End-to-end development" },
+    "problem": {
+      "es": "Los directivos necesitaban consultar KPIs financieros sin depender de analistas para cada pregunta ni navegar decenas de reportes.",
+      "en": "Executives needed to query financial KPIs without relying on analysts for every question or digging through dozens of reports."
+    },
+    "solution": {
+      "es": "Calculé los KPIs en Databricks con Spark SQL y construí una app en Streamlit conectada a la API corporativa de LLM. Las preguntas se resuelven con recuperación semántica (Sentence Transformers + pgvector) para responder con los datos correctos.",
+      "en": "I computed the KPIs in Databricks with Spark SQL and built a Streamlit app connected to the corporate LLM API. Questions are resolved through semantic retrieval (Sentence Transformers + pgvector) so answers are grounded in the right data."
+    },
+    "results": [
+      { "value": "2", "label": { "es": "soluciones GenAI en producción", "en": "GenAI solutions in production" } },
+      { "value": "VP", "label": { "es": "nivel de usuarios", "en": "user level" } }
+    ],
+    "stack": ["databricks", "sql", "streamlit", "llm-apis", "rag", "sentence-transformers", "pgvector", "python"]
+  },
+  {
+    "id": "despliegue-single-tenant",
+    "order": 4,
+    "kind": "case-study",
+    "featured": true,
+    "category": "automation",
+    "title": { "es": "Alta de clientes automatizada: de días a minutos", "en": "Automated client onboarding: from days to minutes" },
+    "summary": {
+      "es": "Automaticé el aprovisionamiento de entornos single-tenant en AWS: de 2–3 días de trabajo manual a ~15 minutos.",
+      "en": "Automated single-tenant environment provisioning on AWS: from 2–3 days of manual work to ~15 minutes."
+    },
+    "context": { "es": "Empresa de automatización industrial", "en": "Industrial automation company" },
+    "role": { "es": "Data Analytics Engineer", "en": "Data Analytics Engineer" },
+    "problem": {
+      "es": "Cada nuevo cliente requería crear a mano su infraestructura aislada (cómputo, almacenamiento, permisos), lo que tomaba días y era propenso a errores.",
+      "en": "Every new client required manually building its isolated infrastructure (compute, storage, permissions), which took days and was error-prone."
+    },
+    "solution": {
+      "es": "Diseñé la infraestructura estándar y la automaticé con scripts, CI/CD y un backend sobre la API de AWS (EC2, S3, IAM) que crea el entorno completo de forma repetible.",
+      "en": "I designed the standard infrastructure and automated it with scripts, CI/CD and a backend on the AWS API (EC2, S3, IAM) that builds the full environment repeatably."
+    },
+    "results": [
+      { "value": "~15 min", "label": { "es": "antes 2–3 días", "en": "down from 2–3 days" } },
+      { "value": "5", "label": { "es": "entornos empresariales", "en": "enterprise environments" } }
+    ],
+    "stack": ["aws", "python", "cicd", "docker", "fastapi"]
+  },
+  {
+    "id": "plataforma-lakehouse",
+    "order": 5,
+    "kind": "case-study",
+    "featured": false,
+    "category": "data-engineering",
+    "title": { "es": "Plataforma lakehouse con 80+ pipelines", "en": "Lakehouse platform with 80+ pipelines" },
+    "summary": {
+      "es": "Pipelines productivos con arquitectura medallion sobre Databricks y Delta Lake, más una plataforma de monitoreo para el equipo y clientes internos.",
+      "en": "Production pipelines on a medallion architecture with Databricks and Delta Lake, plus a monitoring platform for the team and internal clients."
+    },
+    "context": { "es": "Empresa global de telecomunicaciones", "en": "Global telecommunications company" },
+    "role": { "es": "Senior Data Engineer", "en": "Senior Data Engineer" },
+    "problem": {
+      "es": "Múltiples áreas necesitaban datos confiables y gobernados de sistemas heterogéneos, con volúmenes de miles a millones de registros y cargas históricas grandes.",
+      "en": "Several business areas needed reliable, governed data from heterogeneous systems, with volumes from thousands to millions of records and large historical loads."
+    },
+    "solution": {
+      "es": "Construimos capas Bronze/Silver/Gold en Delta Lake con Unity Catalog para gobierno, orquestación con Prefect y pipelines idempotentes. Implementé ~30 de los 80+ pipelines del equipo, incluida una carga histórica de ~100 GB, y APIs internas con FastAPI para monitorearlos.",
+      "en": "We built Bronze/Silver/Gold layers on Delta Lake with Unity Catalog for governance, Prefect orchestration and idempotent pipelines. I implemented ~30 of the team's 80+ pipelines, including a ~100 GB historical load, plus internal FastAPI services to monitor them."
+    },
+    "results": [
+      { "value": "80+", "label": { "es": "pipelines del equipo", "en": "team pipelines" } },
+      { "value": "~30", "label": { "es": "implementados por mí", "en": "built by me" } },
+      { "value": "~100 GB", "label": { "es": "carga histórica", "en": "historical load" } }
+    ],
+    "stack": ["pyspark", "databricks", "delta-lake", "unity-catalog", "medallion", "prefect", "fastapi"]
+  },
+  {
+    "id": "ml-horizonte-de-pago",
+    "order": 6,
+    "kind": "case-study",
+    "featured": false,
+    "category": "ai",
+    "title": { "es": "ML para priorizar la cobranza", "en": "ML to prioritize collections" },
+    "summary": {
+      "es": "Modelos CatBoost/XGBoost en producción que clasifican cuentas suspendidas por horizonte probable de pago.",
+      "en": "CatBoost/XGBoost models in production that classify suspended accounts by likely payment horizon."
+    },
+    "context": { "es": "Empresa global de telecomunicaciones", "en": "Global telecommunications company" },
+    "problem": {
+      "es": "Enviar todas las cuentas suspendidas a agencias externas genera honorarios incluso en cuentas que se habrían pagado solas en pocos días.",
+      "en": "Sending every suspended account to external agencies incurs fees even on accounts that would have paid on their own within days."
+    },
+    "solution": {
+      "es": "Entrené y desplegué modelos de clasificación que estiman si una cuenta pagará en 7, 14, 21 o más de 21 días, para decidir cuáles enviar a cobranza externa y cuándo.",
+      "en": "I trained and deployed classification models that estimate whether an account will pay within 7, 14, 21 or more than 21 days, to decide which accounts go to external collections and when."
+    },
+    "results": [
+      { "value": "4", "label": { "es": "horizontes de pago", "en": "payment horizons" } },
+      { "value": "~60K", "label": { "es": "suspensiones al mes", "en": "suspensions per month" } }
+    ],
+    "stack": ["python", "catboost", "xgboost", "scikit-learn", "databricks"]
+  },
+  {
+    "id": "imagen-medica-microservicios",
+    "order": 7,
+    "kind": "case-study",
+    "featured": false,
+    "category": "ai",
+    "title": { "es": "Microservicios para imagen médica", "en": "Medical-imaging microservices" },
+    "summary": {
+      "es": "Rediseño a cinco microservicios para procesar estudios DICOM, con un tiempo de respuesta 3x más rápido.",
+      "en": "Redesign into five microservices for DICOM studies, with 3x faster response time."
+    },
+    "context": { "es": "Health-tech de imagen médica", "en": "Medical-imaging health-tech" },
+    "role": { "es": "AI Developer", "en": "AI Developer" },
+    "problem": {
+      "es": "El análisis de imágenes médicas corría en un servicio monolítico lento, con datos sensibles provenientes de sistemas PACS.",
+      "en": "Medical-image analysis ran in a slow monolithic service, handling sensitive data from PACS systems."
+    },
+    "solution": {
+      "es": "Separé el flujo en cinco microservicios con Django y FastAPI, colas con Redis y Celery para el procesamiento asíncrono, y modelos de OCR/visión por computadora para extraer información de los estudios.",
+      "en": "I split the flow into five Django and FastAPI microservices, with Redis and Celery queues for async processing, and OCR/computer-vision models to extract information from the studies."
+    },
+    "results": [
+      { "value": "3x", "label": { "es": "más rápido", "en": "faster response" } },
+      { "value": "~80%", "label": { "es": "precisión OCR/CV", "en": "OCR/CV precision" } }
+    ],
+    "stack": ["python", "django", "fastapi", "redis", "celery", "ocr"]
+  },
+  {
+    "id": "fastapi-template",
+    "order": 100,
+    "kind": "lab",
+    "category": "web",
+    "title": { "es": "FastAPI Template", "en": "FastAPI Template" },
+    "summary": {
+      "es": "Plantilla base para APIs con FastAPI, lista para clonar y arrancar nuevos servicios.",
+      "en": "Starter template for FastAPI services, ready to clone for new projects."
+    },
+    "stack": ["python", "fastapi", "docker"],
+    "links": { "repo": "https://github.com/VIILLAKC/FastAPI-Template" },
+    "image": "./images/fastapi-template.png",
+    "imageAlt": { "es": "Captura de la plantilla FastAPI", "en": "FastAPI template screenshot" }
+  },
+  {
+    "id": "batatabit",
+    "order": 101,
+    "kind": "lab",
+    "category": "web",
+    "title": { "es": "Batatabit", "en": "Batatabit" },
+    "summary": {
+      "es": "Landing responsiva con enfoque mobile-first.",
+      "en": "Responsive landing page built mobile-first."
+    },
+    "stack": ["html-css"],
+    "links": { "demo": "https://viillakc.github.io/VIILLAKC-responsiveDesign_Mobile_First/" },
+    "image": "./images/batatabit.png",
+    "imageAlt": { "es": "Captura del sitio Batatabit", "en": "Batatabit site screenshot" }
+  },
+  {
+    "id": "todo-app",
+    "order": 102,
+    "kind": "lab",
+    "category": "web",
+    "title": { "es": "TODO App", "en": "TODO App" },
+    "summary": {
+      "es": "Aplicación de tareas en el navegador.",
+      "en": "In-browser task manager app."
+    },
+    "stack": ["html-css"],
+    "links": { "demo": "https://viillakc.github.io/TODO/" },
+    "image": "./images/todo.png",
+    "imageAlt": { "es": "Captura de la TODO app", "en": "TODO app screenshot" }
+  }
+]

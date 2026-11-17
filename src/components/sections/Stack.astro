@@ -1,0 +1,112 @@
+---
+import Section from '../ui/Section.astro';
+import Icon from '../ui/Icon.astro';
+import { getLangFromUrl, useTranslations, t, formatYearMonth, type UiKey } from '@/i18n/ui';
+import { getSkills, getCertifications, getProfile } from '@/lib/content';
+import { skillCategories } from '../../content.config';
+
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+const skills = await getSkills();
+const certs = await getCertifications();
+const { education } = await getProfile();
+
+// Logos disponibles en src/assets/tech/*.svg
+const logos = import.meta.glob<{ default: ImageMetadata }>('/src/assets/tech/*.svg', { eager: true });
+const logo = (name?: string) => (name ? logos[`/src/assets/tech/${name}.svg`]?.default : undefined);
+
+const core = skills.filter((s) => s.data.core);
+const groups = skillCategories
+  .map((cat) => ({ cat, items: skills.filter((s) => s.data.category === cat) }))
+  .filter((g) => g.items.length > 0);
+---
+
+<Section id="stack" altitude={tr('alt.stack')} title={tr('stack.title')}>
+  <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6" aria-label="Core stack">
+    {
+      core.map(({ data: s }) => {
+        const img = logo(s.icon);
+        return (
+          <li class="flex min-h-20 items-center gap-3 rounded-2xl border border-line bg-white/[0.03] px-4 py-3">
+            {img ? (
+              <img src={img.src} width="28" height="28" alt="" loading="lazy" decoding="async" class="size-7 shrink-0" />
+            ) : (
+              <span class="grid size-7 shrink-0 place-items-center rounded-md bg-signal/15 font-display text-xs font-bold text-signal" aria-hidden="true">
+                {s.name.slice(0, 2)}
+              </span>
+            )}
+            <span class="text-sm font-semibold">{s.name}</span>
+          </li>
+        );
+      })
+    }
+  </ul>
+
+  <div class="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      groups.map((g) => (
+        <div>
+          <h3 class="font-display text-sm font-semibold tracking-wider text-ink uppercase">{tr(`stack.cat.${g.cat}` as UiKey)}</h3>
+          <p class="mt-2 text-sm text-muted">{g.items.map((s) => s.data.name).join(' · ')}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mt-16 grid gap-10 lg:grid-cols-2">
+    <div>
+      <h3 class="font-display text-xl font-bold">{tr('stack.certs')}</h3>
+      <ul class="mt-4 divide-y divide-line rounded-2xl border border-line">
+        {
+          certs.map(({ data: c }) => (
+            <li class="flex items-center justify-between gap-4 px-5 py-4">
+              <div>
+                {c.url ? (
+                  <a href={c.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 font-semibold hover:text-signal">
+                    {c.name}
+                    <span class="sr-only">{tr('common.external')}</span>
+                    <Icon name="external" size={14} class="text-muted" />
+                  </a>
+                ) : (
+                  <p class="font-semibold">{c.name}</p>
+                )}
+                <p class="text-sm text-muted">{c.issuer}</p>
+              </div>
+              <span
+                class:list={[
+                  'shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold',
+                  c.status === 'earned' ? 'bg-terra/15 text-terra' : 'bg-thrust/15 text-thrust',
+                ]}
+              >
+                {tr(`stack.cert.${c.status}`)}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="font-display text-xl font-bold">{tr('stack.education')}</h3>
+      <ul class="mt-4 space-y-4">
+        {
+          education.map((e) => (
+            <li class="rounded-2xl border border-line bg-white/[0.03] px-5 py-4">
+              <p class="font-semibold">{t(e.degree, lang)}</p>
+              <p class="text-sm text-muted">
+                {e.institution}
+                {e.status === 'in-progress' && (
+                  <span class="text-thrust">
+                    {' · '}
+                    {tr('stack.edu.in-progress')}
+                    {e.end && ` (${formatYearMonth(e.end, lang)})`}
+                  </span>
+                )}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Section>

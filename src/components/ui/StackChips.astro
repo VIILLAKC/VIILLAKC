@@ -1,0 +1,21 @@
+---
+import { resolveStack } from '@/lib/content';
+
+interface Props {
+  refs: { id: string }[];
+  label?: string;
+  class?: string;
+}
+const { refs, label = 'Stack', class: className = '' } = Astro.props;
+const skills = await resolveStack(refs);
+---
+
+{
+  skills.length > 0 && (
+    <ul aria-label={label} class:list={['flex flex-wrap gap-1.5', className]}>
+      {skills.map((s) => (
+        <li class="rounded-full border border-line bg-white/[0.03] px-2.5 py-0.5 text-xs text-muted">{s.name}</li>
+      ))}
+    </ul>
+  )
+}

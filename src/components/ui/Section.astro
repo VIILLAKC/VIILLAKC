@@ -1,16 +1,21 @@
 ---
+import Landmark, { type LandmarkKind } from '../journey/Landmark.astro';
+
 interface Props {
   id: string;
   altitude: string;
   title: string;
   intro?: string;
   class?: string;
+  /** Hito del viaje que se ve detrás de la sección (galaxia, planetas, asteroides, Luna). */
+  landmark?: LandmarkKind;
 }
-const { id, altitude, title, intro, class: className = '' } = Astro.props;
+const { id, altitude, title, intro, class: className = '', landmark } = Astro.props;
 const headingId = `${id}-title`;
 ---
 
-<section id={id} aria-labelledby={headingId} class:list={['section-stop relative py-24 sm:py-32', className]} data-section={id}>
+<section id={id} aria-labelledby={headingId} class:list={['section-stop relative isolate py-24 sm:py-32', className]} data-section={id}>
+  {landmark && <Landmark kind={landmark} />}
   <div class="container-page">
     <header class="mb-12 max-w-2xl sm:mb-16">
       <p class="flex items-center gap-3 font-display text-xs font-medium tracking-[0.25em] text-signal uppercase">

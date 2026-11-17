@@ -25,10 +25,10 @@ const es = {
 
   // Altitudes del viaje (etiqueta superior de cada sección)
   'alt.hero': 'Espacio profundo',
-  'alt.about': 'Órbita lunar · 384,000 km',
-  'alt.services': 'Órbita baja · 200 km',
-  'alt.projects': 'Estación orbital · 400 km',
-  'alt.experience': 'Órbita alta · 36,000 km',
+  'alt.about': 'Sistema solar exterior · 4,500M km',
+  'alt.services': 'Órbita terrestre · 400 km',
+  'alt.projects': 'Cinturón de asteroides · 300M km',
+  'alt.experience': 'Gigantes gaseosos · 1,200M km',
   'alt.stack': 'Entrada atmosférica · 100 km',
   'alt.contact': 'Superficie terrestre · 0 km',
 
@@ -120,10 +120,10 @@ const en: Record<keyof typeof es, string> = {
   'lang.switch': 'Change language',
 
   'alt.hero': 'Deep space',
-  'alt.about': 'Lunar orbit · 239,000 mi',
-  'alt.services': 'Low orbit · 125 mi',
-  'alt.projects': 'Orbital station · 250 mi',
-  'alt.experience': 'High orbit · 22,000 mi',
+  'alt.about': 'Outer solar system · 2.8B mi',
+  'alt.services': 'Earth orbit · 250 mi',
+  'alt.projects': 'Asteroid belt · 190M mi',
+  'alt.experience': 'Gas giants · 750M mi',
   'alt.stack': 'Atmospheric entry · 62 mi',
   'alt.contact': 'Earth surface · 0 mi',
 

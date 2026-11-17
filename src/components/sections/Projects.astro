@@ -19,7 +19,7 @@ const filters = projectCategories
   .filter((f) => f.count > 0);
 ---
 
-<Section id="projects" altitude={tr('alt.projects')} title={tr('projects.title')} intro={tr('projects.intro')}>
+<Section id="projects" landmark="asteroids" altitude={tr('alt.projects')} title={tr('projects.title')} intro={tr('projects.intro')}>
   {
     filters.length > 1 && (
       // Oculto hasta que el script lo active: sin JavaScript se ven todos los casos.

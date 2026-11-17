@@ -1,6 +1,7 @@
 ---
 import ButtonLink from '../ui/ButtonLink.astro';
 import Icon from '../ui/Icon.astro';
+import Landmark from '../journey/Landmark.astro';
 import { getLangFromUrl, useTranslations, t } from '@/i18n/ui';
 import { getProfile } from '@/lib/content';
 
@@ -9,7 +10,8 @@ const tr = useTranslations(lang);
 const p = await getProfile();
 ---
 
-<section id="top" aria-labelledby="hero-title" class="section-stop relative flex min-h-svh items-center pt-16" data-section="top">
+<section id="top" aria-labelledby="hero-title" class="section-stop relative isolate flex min-h-svh items-center pt-16" data-section="top">
+  <Landmark kind="galaxy" />
   <div class="container-page py-20">
     <p class="flex items-center gap-3 font-display text-xs font-medium tracking-[0.25em] text-signal uppercase">
       <span class="h-px w-8 bg-signal/60" aria-hidden="true"></span>

@@ -1,0 +1,88 @@
+---
+/** Altímetro decorativo (pantallas ≥ 1280 px): marca la sección actual y el progreso del descenso. */
+import { getLangFromUrl, useTranslations, type UiKey } from '@/i18n/ui';
+
+const tr = useTranslations(getLangFromUrl(Astro.url));
+const stops: { id: string; key: UiKey }[] = [
+  { id: 'top', key: 'alt.hero' },
+  { id: 'about', key: 'alt.about' },
+  { id: 'services', key: 'alt.services' },
+  { id: 'projects', key: 'alt.projects' },
+  { id: 'experience', key: 'alt.experience' },
+  { id: 'stack', key: 'alt.stack' },
+  { id: 'contact', key: 'alt.contact' },
+];
+---
+
+<div class="altimeter" data-journey aria-hidden="true">
+  <div class="track">
+    <span class="fill"></span>
+    {stops.map((s) => <span class="mark" data-alt-mark={s.id} data-label={tr(s.key)} />)}
+  </div>
+  <p class="label" data-alt-label>{tr('alt.hero')}</p>
+</div>
+
+<style>
+  .altimeter {
+    display: none;
+  }
+  @media (min-width: 1280px) {
+    .altimeter {
+      position: fixed;
+      z-index: 20;
+      left: max(1rem, calc((100vw - 72rem) / 2 - 4.5rem));
+      top: 50%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+  }
+  .track {
+    position: relative;
+    display: flex;
+    height: 40vh;
+    width: 2px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-line);
+  }
+  .fill {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 100%;
+    background: linear-gradient(var(--color-signal), var(--color-terra));
+    transform: scaleY(var(--p, 0));
+    transform-origin: top;
+  }
+  .mark {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-void);
+    border: 1.5px solid var(--color-muted);
+    transition:
+      transform 0.3s,
+      border-color 0.3s,
+      background 0.3s;
+  }
+  .mark:global(.is-active) {
+    transform: scale(1.5);
+    border-color: var(--color-signal);
+    background: var(--color-signal);
+    box-shadow: 0 0 12px var(--color-signal);
+  }
+  .label {
+    writing-mode: vertical-rl;
+    rotate: 180deg;
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+interface Props {
+  id: string;
+  altitude: string;
+  title: string;
+  intro?: string;
+  class?: string;
+}
+const { id, altitude, title, intro, class: className = '' } = Astro.props;
+const headingId = `${id}-title`;
+---
+
+<section id={id} aria-labelledby={headingId} class:list={['section-stop relative py-24 sm:py-32', className]} data-section={id}>
+  <div class="container-page">
+    <header class="mb-12 max-w-2xl sm:mb-16">
+      <p class="flex items-center gap-3 font-display text-xs font-medium tracking-[0.25em] text-signal uppercase">
+        <span class="h-px w-8 bg-signal/60" aria-hidden="true"></span>
+        {altitude}
+      </p>
+      <h2 id={headingId} class="mt-4 text-3xl font-bold sm:text-5xl">{title}</h2>
+      {intro && <p class="mt-4 text-lg text-muted">{intro}</p>}
+    </header>
+    <slot />
+  </div>
+</section>

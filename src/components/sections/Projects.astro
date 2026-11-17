@@ -1,0 +1,141 @@
+---
+import Section from '../ui/Section.astro';
+import CaseCard from '../projects/CaseCard.astro';
+import LabCard from '../projects/LabCard.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/ui';
+import { getProjects } from '@/lib/content';
+import { projectCategories } from '@/content.config';
+import { categoryColor } from '@/lib/categories';
+
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+// Destacados primero; dentro de cada grupo, el orden del JSON.
+const cases = (await getProjects('case-study')).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const lab = await getProjects('lab');
+
+// Solo se ofrecen filtros de categorías que tienen casos.
+const filters = projectCategories
+  .map((cat) => ({ cat, count: cases.filter((c) => c.data.category === cat).length }))
+  .filter((f) => f.count > 0);
+---
+
+<Section id="projects" altitude={tr('alt.projects')} title={tr('projects.title')} intro={tr('projects.intro')}>
+  {
+    filters.length > 1 && (
+      // Oculto hasta que el script lo active: sin JavaScript se ven todos los casos.
+      <div role="group" aria-label={tr('projects.filter.label')} class="-mt-2 mb-8 flex flex-wrap gap-2" data-case-filters hidden>
+        <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">
+          {tr('projects.filter.all')} <span class="count">{cases.length}</span>
+        </button>
+        {filters.map((f) => (
+          <button type="button" class="filter-btn" data-filter={f.cat} aria-pressed="false" style={`--cat:${categoryColor[f.cat]}`}>
+            {tr(`projects.cat.${f.cat}`)} <span class="count">{f.count}</span>
+          </button>
+        ))}
+      </div>
+    )
+  }
+  <p class="sr-only" aria-live="polite" data-case-status data-template={tr('projects.filter.status')}></p>
+
+  <ul class="grid gap-6 md:grid-cols-2" data-case-list>
+    {
+      cases.map((p) => (
+        <li data-category={p.data.category} style={`view-transition-name: case-${p.id}`}>
+          <CaseCard project={p} />
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    lab.length > 0 && (
+      <div class="mt-20">
+        <h3 class="font-display text-xl font-bold">{tr('projects.lab.title')}</h3>
+        <p class="mt-1 text-muted">{tr('projects.lab.intro')}</p>
+        <ul class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {lab.map((p) => (
+            <li>
+              <LabCard project={p} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+</Section>
+
+<script>
+  // Filtros de casos: muestran/ocultan tarjetas; con View Transitions la reorganización se anima.
+  const group = document.querySelector<HTMLElement>('[data-case-filters]');
+  const items = [...document.querySelectorAll<HTMLElement>('[data-case-list] > li')];
+  const status = document.querySelector<HTMLElement>('[data-case-status]');
+
+  if (group && items.length) {
+    group.hidden = false;
+    const buttons = [...group.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const apply = (filter: string) => {
+      let shown = 0;
+      for (const li of items) {
+        const match = filter === 'all' || li.dataset.category === filter;
+        li.hidden = !match;
+        if (match) shown++;
+      }
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
+      if (status) status.textContent = (status.dataset.template ?? '').replace('{n}', String(shown));
+    };
+
+    group.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-filter]');
+      if (!btn || btn.getAttribute('aria-pressed') === 'true') return;
+      const filter = btn.dataset.filter ?? 'all';
+      if (!reduced && 'startViewTransition' in document) document.startViewTransition(() => apply(filter));
+      else apply(filter);
+    });
+  }
+</script>
+
+<style>
+  .filter-btn {
+    --cat: var(--color-signal);
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-line);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition:
+      color 0.2s,
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+  .filter-btn:hover {
+    color: var(--color-ink);
+    border-color: color-mix(in oklab, var(--cat) 60%, transparent);
+  }
+  .filter-btn[aria-pressed='true'] {
+    color: var(--color-void);
+    background: var(--cat);
+    border-color: var(--cat);
+  }
+  .filter-btn:focus-visible {
+    outline: 2px solid var(--cat);
+    outline-offset: 3px;
+  }
+  .count {
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.08);
+    padding: 0 0.45rem;
+    font-size: 0.75rem;
+  }
+  .filter-btn[aria-pressed='true'] .count {
+    background: rgb(0 0 0 / 0.15);
+  }
+</style>

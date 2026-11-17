@@ -1,0 +1,96 @@
+---
+import '@fontsource-variable/space-grotesk/wght.css';
+import fontUrl from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
+import '@/styles/global.css';
+import { getLangFromUrl, useTranslations, translatePath, languages, type Lang } from '@/i18n/ui';
+import { assertContentIntegrity } from '@/lib/content';
+
+await assertContentIntegrity();
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Nombre de la imagen OG en /og/<lang>/<ogImage>.png (ver src/pages/og). */
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  /** Datos estructurados (JSON-LD) de la página. */
+  jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+const {
+  title = tr('meta.title'),
+  description = tr('meta.description'),
+  ogImage = 'home',
+  ogImageAlt = title,
+  ogType = 'website',
+  jsonLd,
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogLocale = { es: 'es_MX', en: 'en_US' } as const;
+const image = new URL(`${import.meta.env.BASE_URL}og/${lang}/${ogImage}.png`.replace(/\/{2,}/g, '/'), Astro.site);
+// "<" escapado para que el JSON no pueda cerrar la etiqueta <script>.
+const ldJson = jsonLd && JSON.stringify({ '@context': 'https://schema.org', ...jsonLd }).replace(/</g, '\\u003c');
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#04050c" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="google-site-verification" content="AryVBFDTMBOXq4Em3469y0pj3SA02LlF9FtpyjoSLc0" />
+    <meta name="author" content="Israel Villa" />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <>
+          <link rel="canonical" href={canonical} />
+          {(Object.keys(languages) as Lang[]).map((l) => (
+            <link rel="alternate" hreflang={l} href={new URL(translatePath(Astro.url, l), Astro.site)} />
+          ))}
+          <link rel="alternate" hreflang="x-default" href={new URL(translatePath(Astro.url, 'es'), Astro.site)} />
+        </>
+      )
+    }
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} sizes="any" />
+    <link rel="sitemap" href={`${import.meta.env.BASE_URL}sitemap-index.xml`} />
+    <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Israel Villa" />
+    <meta property="og:locale" content={ogLocale[lang]} />
+    {(Object.keys(languages) as Lang[]).filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={ogLocale[l]} />)}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+    {ldJson && <script type="application/ld+json" set:html={ldJson} />}
+    <slot name="head" />
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-void"
+      >{tr('a11y.skip')}</a
+    >
+    <slot />
+  </body>
+</html>

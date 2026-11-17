@@ -1,0 +1,12 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Home from '@/components/Home.astro';
+import { getLangFromUrl } from '@/i18n/ui';
+import { homeJsonLd } from '@/lib/structured-data';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<BaseLayout ogType="profile" jsonLd={await homeJsonLd(lang)}>
+  <Home />
+</BaseLayout>

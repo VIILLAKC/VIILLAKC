@@ -1,0 +1,46 @@
+---
+import ButtonLink from '../ui/ButtonLink.astro';
+import Icon from '../ui/Icon.astro';
+import { getLangFromUrl, useTranslations, t } from '@/i18n/ui';
+import { getProfile } from '@/lib/content';
+
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+const p = await getProfile();
+---
+
+<section id="top" aria-labelledby="hero-title" class="section-stop relative flex min-h-svh items-center pt-16" data-section="top">
+  <div class="container-page py-20">
+    <p class="flex items-center gap-3 font-display text-xs font-medium tracking-[0.25em] text-signal uppercase">
+      <span class="h-px w-8 bg-signal/60" aria-hidden="true"></span>
+      {tr('alt.hero')}
+    </p>
+
+    <h1 id="hero-title" class="mt-6 max-w-4xl text-5xl font-bold sm:text-7xl lg:text-8xl">
+      <span class="block">{p.name}</span>
+      <span class="hero-role mt-2 block bg-gradient-to-r from-signal via-aurora to-thrust bg-clip-text text-transparent">
+        {t(p.headline, lang)}
+      </span>
+    </h1>
+
+    <p class="mt-6 max-w-2xl text-lg text-muted sm:text-xl">{t(p.tagline, lang)}</p>
+
+    <p class="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-4 py-1.5 text-sm text-ink">
+      <span class="relative flex size-2.5" aria-hidden="true">
+        <span class="absolute inline-flex size-full animate-ping rounded-full bg-terra opacity-60 motion-reduce:hidden"></span>
+        <span class="relative inline-flex size-2.5 rounded-full bg-terra"></span>
+      </span>
+      {t(p.openTo, lang)}
+    </p>
+
+    <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+      <ButtonLink href="#experience" iconEnd="arrow-right">{tr('hero.cta.hire')}</ButtonLink>
+      <ButtonLink href="#services" variant="thrust" iconEnd="arrow-right">{tr('hero.cta.client')}</ButtonLink>
+    </div>
+
+    <a href="#about" class="mt-16 hidden items-center gap-2 text-sm text-muted transition-colors hover:text-ink sm:inline-flex">
+      <Icon name="arrow-down" size={16} class="animate-bounce motion-reduce:animate-none" />
+      {tr('hero.scroll')}
+    </a>
+  </div>
+</section>

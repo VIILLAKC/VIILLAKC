@@ -1,0 +1,112 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import Icon from './ui/Icon.astro';
+import { getLangFromUrl, useTranslations, localizePath } from '@/i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+const home = localizePath('', lang);
+const links = [
+  { id: 'about', label: tr('nav.about') },
+  { id: 'services', label: tr('nav.services') },
+  { id: 'projects', label: tr('nav.projects') },
+  { id: 'experience', label: tr('nav.experience') },
+  { id: 'contact', label: tr('nav.contact') },
+];
+---
+
+<header class="site-header fixed inset-x-0 top-0 z-40 border-b border-transparent transition-colors duration-300">
+  <div class="container-page flex h-16 items-center justify-between gap-4">
+    <a href={home} class="font-display text-lg font-bold tracking-tight">
+      <span aria-hidden="true">IV<span class="text-signal">.</span></span>
+      <span class="sr-only">Israel Villa — {tr('nav.home')}</span>
+    </a>
+
+    <nav aria-label={tr('nav.label')} class="hidden md:block">
+      <ul class="flex items-center gap-1 text-sm">
+        {
+          links.map((l) => (
+            <li>
+              <a href={`${home}#${l.id}`} data-nav={l.id} class="nav-link rounded-full px-3 py-2 text-muted transition-colors hover:text-ink aria-[current]:bg-white/[0.06] aria-[current]:text-ink">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <LanguageSwitcher />
+      <button
+        type="button"
+        popovertarget="mobile-nav"
+        class="inline-flex size-11 items-center justify-center rounded-full border border-line md:hidden"
+        aria-label={tr('nav.menu')}
+      >
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú móvil con la Popover API: funciona sin JavaScript y gestiona el foco y Esc. -->
+  <div id="mobile-nav" popover class="mobile-nav m-0 h-dvh max-h-none w-full max-w-none bg-void p-0 text-ink md:hidden">
+    <div class="container-page flex h-16 items-center justify-end">
+      <button
+        type="button"
+        popovertarget="mobile-nav"
+        popovertargetaction="hide"
+        class="inline-flex size-11 items-center justify-center rounded-full border border-line"
+        aria-label={tr('nav.close')}
+      >
+        <Icon name="close" />
+      </button>
+    </div>
+    <nav aria-label={tr('nav.label')} class="container-page">
+      <ul class="flex flex-col gap-2 pt-6">
+        {
+          links.map((l) => (
+            <li>
+              <a href={`${home}#${l.id}`} class="block py-3 font-display text-3xl font-bold">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Cierra el menú móvil al elegir un enlace y oscurece el header al hacer scroll.
+  const menu = document.getElementById('mobile-nav');
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) menu.hidePopover();
+  });
+  const header = document.querySelector('.site-header');
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 16);
+  addEventListener('scroll', onScroll, { passive: true });
+  // En el siguiente frame: leer scrollY al ejecutar el módulo forzaría un layout síncrono.
+  requestAnimationFrame(onScroll);
+</script>
+
+<style>
+  .site-header:global(.is-scrolled) {
+    background: color-mix(in oklab, var(--color-void) 82%, transparent);
+    border-color: var(--color-line);
+    backdrop-filter: blur(10px);
+  }
+  .mobile-nav::backdrop {
+    background: transparent;
+  }
+  .mobile-nav:popover-open {
+    animation: menu-in 0.25s var(--ease-out-expo);
+  }
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+</style>

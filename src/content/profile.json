@@ -1,0 +1,64 @@
+[
+  {
+    "id": "main",
+    "name": "Israel Villa",
+    "headline": {
+      "es": "Senior Data Engineer",
+      "en": "Senior Data Engineer"
+    },
+    "tagline": {
+      "es": "Diseño plataformas de datos confiables y automatizo los procesos que frenan a tu empresa.",
+      "en": "I build reliable data platforms and automate the processes that slow your business down."
+    },
+    "summary": [
+      {
+        "es": "Ingeniero en informática con 4 años de experiencia construyendo pipelines escalables, integrando sistemas heterogéneos y resolviendo problemas de rendimiento en telecomunicaciones, industria y salud.",
+        "en": "Computer engineer with 4 years of experience building scalable pipelines, integrating heterogeneous systems and solving performance problems across telecom, manufacturing and healthcare."
+      },
+      {
+        "es": "Mi base es Python, SQL, Spark/PySpark y Databricks con arquitectura medallion. He llevado GenAI y modelos de ML a producción, liderado a 4 ingenieros y mentoreado a 6.",
+        "en": "My core is Python, SQL, Spark/PySpark and Databricks with medallion architecture. I've shipped GenAI and ML models to production, led 4 engineers and mentored 6."
+      }
+    ],
+    "location": {
+      "es": "Ciudad de México, México",
+      "en": "Mexico City, Mexico"
+    },
+    "openTo": {
+      "es": "Roles de Senior Data Engineer y proyectos de automatización empresarial",
+      "en": "Senior Data Engineer roles and business automation projects"
+    },
+    "stats": [
+      { "value": "4", "label": { "es": "años en producción", "en": "years in production" } },
+      { "value": "~30", "label": { "es": "pipelines productivos propios", "en": "production pipelines I built" } },
+      { "value": "80+", "label": { "es": "pipelines entregados en equipo", "en": "pipelines shipped as a team" } },
+      { "value": "10M", "label": { "es": "cuentas procesadas por corrida", "en": "accounts processed per run" } }
+    ],
+    "languages": [
+      { "name": { "es": "Español", "en": "Spanish" }, "level": { "es": "Nativo", "en": "Native" } },
+      { "name": { "es": "Inglés", "en": "English" }, "level": { "es": "Intermedio (B1)", "en": "Intermediate (B1)" } }
+    ],
+    "education": [
+      {
+        "degree": { "es": "Maestría en Inteligencia Artificial", "en": "Master's in Artificial Intelligence" },
+        "institution": "UNIR",
+        "status": "in-progress",
+        "end": "2027-05"
+      },
+      {
+        "degree": { "es": "Licenciatura en Informática", "en": "B.Sc. in Computer Science (Informatics)" },
+        "institution": "UNAM · FES Cuautitlán",
+        "status": "completed"
+      },
+      {
+        "degree": { "es": "Diplomado en Desarrollo Web Aplicado a los Negocios", "en": "Diploma in Web Development for Business" },
+        "institution": "UNAM",
+        "status": "completed"
+      }
+    ],
+    "links": {
+      "github": "https://github.com/VIILLAKC",
+      "linkedin": "https://www.linkedin.com/in/israel-v-8b50381b5"
+    }
+  }
+]

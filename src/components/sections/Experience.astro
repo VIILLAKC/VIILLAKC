@@ -1,0 +1,46 @@
+---
+import Section from '../ui/Section.astro';
+import StackChips from '../ui/StackChips.astro';
+import { getLangFromUrl, useTranslations, t, formatYearMonth } from '@/i18n/ui';
+import { getExperience } from '@/lib/content';
+
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+const jobs = await getExperience();
+---
+
+<Section id="experience" altitude={tr('alt.experience')} title={tr('experience.title')}>
+  <ol class="relative ml-2 border-l border-line sm:ml-4">
+    {
+      jobs.map(({ data: j }) => (
+        <li class="relative pb-12 pl-8 last:pb-0 sm:pl-12">
+          <span
+            class:list={[
+              'absolute top-1.5 -left-[7px] size-3.5 rounded-full border-2',
+              j.end === null ? 'border-terra bg-terra shadow-[0_0_16px_var(--color-terra)]' : 'border-signal bg-void',
+            ]}
+            aria-hidden="true"
+          />
+          <p class="text-sm text-muted">
+            <time datetime={j.start}>{formatYearMonth(j.start, lang)}</time>
+            {' — '}
+            {j.end ? <time datetime={j.end}>{formatYearMonth(j.end, lang)}</time> : <span class="font-semibold text-terra">{tr('experience.present')}</span>}
+          </p>
+          <h3 class="mt-1 text-xl font-bold sm:text-2xl">{t(j.role, lang)}</h3>
+          <p class="text-ink/80">
+            {t(j.org, lang)}
+            {j.location && <span class="text-muted"> · {t(j.location, lang)}</span>}
+          </p>
+          {j.highlights.length > 0 && (
+            <ul class="mt-4 max-w-3xl list-disc space-y-2 pl-5 text-muted marker:text-signal">
+              {j.highlights.map((h) => (
+                <li>{t(h, lang)}</li>
+              ))}
+            </ul>
+          )}
+          <StackChips refs={j.stack} class="mt-4" />
+        </li>
+      ))
+    }
+  </ol>
+</Section>

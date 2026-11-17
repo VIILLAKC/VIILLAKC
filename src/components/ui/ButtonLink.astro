@@ -1,0 +1,35 @@
+---
+import Icon, { type IconName } from './Icon.astro';
+
+interface Props {
+  href: string;
+  variant?: 'primary' | 'thrust' | 'ghost';
+  icon?: IconName;
+  iconEnd?: IconName;
+  external?: boolean;
+  externalLabel?: string;
+  class?: string;
+}
+const { href, variant = 'primary', icon, iconEnd, external = false, externalLabel, class: className = '' } = Astro.props;
+
+const styles = {
+  primary: 'bg-signal text-void hover:bg-white',
+  thrust: 'bg-thrust text-void hover:bg-white',
+  ghost: 'border border-line text-ink hover:border-signal hover:text-signal',
+};
+---
+
+<a
+  href={href}
+  class:list={[
+    'inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 font-display text-sm font-semibold transition-colors duration-200',
+    styles[variant],
+    className,
+  ]}
+  {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+>
+  {icon && <Icon name={icon} size={18} />}
+  <slot />
+  {external && externalLabel && <span class="sr-only">{externalLabel}</span>}
+  {iconEnd && <Icon name={iconEnd} size={18} />}
+</a>

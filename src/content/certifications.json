@@ -1,0 +1,56 @@
+[
+  {
+    "id": "aws-data-engineer-associate",
+    "order": 1,
+    "name": "AWS Certified Data Engineer – Associate",
+    "issuer": "Amazon Web Services",
+    "status": "in-progress"
+  },
+  {
+    "id": "databricks-data-engineer-associate",
+    "order": 2,
+    "name": "Databricks Certified Data Engineer Associate",
+    "issuer": "Databricks",
+    "status": "in-progress"
+  },
+  {
+    "id": "google-data-analytics",
+    "order": 3,
+    "name": "Google Data Analytics",
+    "issuer": "Google",
+    "status": "earned",
+    "url": "https://www.credly.com/badges/b26dbc64-1859-4f86-8719-142348c095e5"
+  },
+  {
+    "id": "ai-fundamentals",
+    "order": 4,
+    "name": "Artificial Intelligence Fundamentals",
+    "issuer": "IBM",
+    "status": "earned",
+    "url": "https://www.credly.com/badges/478a0c2a-5eaa-4086-a7c4-c5e6f824712b"
+  },
+  {
+    "id": "ai-fundamentals-skillsbuild",
+    "order": 5,
+    "name": "AI Fundamentals with IBM SkillsBuild",
+    "issuer": "IBM SkillsBuild",
+    "status": "earned",
+    "url": "https://www.credly.com/badges/65943d2e-669f-430d-b83c-2a6302bfc124"
+  },
+  {
+    "id": "cisco-python",
+    "order": 6,
+    "name": "Python",
+    "issuer": "Cisco Networking Academy",
+    "status": "earned",
+    "url": "https://www.credly.com/badges/f8f7d581-8bec-4fee-8361-d18caf715ddb"
+  },
+  {
+    "id": "platzi-backend",
+    "order": 7,
+    "name": "Backend",
+    "issuer": "Platzi",
+    "status": "earned",
+    "url": "https://platzi.com/p/israelvilla112273/"
+  }
+]

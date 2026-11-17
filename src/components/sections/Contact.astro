@@ -1,0 +1,56 @@
+---
+import ButtonLink from '../ui/ButtonLink.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/ui';
+import { getProfile } from '@/lib/content';
+
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+const { links } = await getProfile();
+const ext = tr('common.external');
+---
+
+<section
+  id="contact"
+  aria-labelledby="contact-title"
+  class="section-stop relative pt-24 pb-[calc(min(170vw,80rem)*0.3+9rem)] sm:pt-32"
+  data-section="contact"
+>
+  <div class="relative z-10 container-page text-center">
+    <p class="flex items-center justify-center gap-3 font-display text-xs font-medium tracking-[0.25em] text-signal uppercase">
+      <span class="h-px w-8 bg-signal/60" aria-hidden="true"></span>
+      {tr('alt.contact')}
+      <span class="h-px w-8 bg-signal/60" aria-hidden="true"></span>
+    </p>
+    <h2 id="contact-title" class="mt-4 text-4xl font-bold sm:text-6xl">{tr('contact.title')}</h2>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-ink/90">{tr('contact.intro')}</p>
+
+    <div class="mx-auto mt-12 grid max-w-3xl gap-4 text-left sm:grid-cols-2">
+      <div class="rounded-3xl border border-line bg-void/70 p-6">
+        <h3 class="font-display text-lg font-bold">{tr('contact.recruiters')}</h3>
+        <p class="mt-1 text-sm text-muted">{tr('contact.recruiters.text')}</p>
+      </div>
+      <div class="rounded-3xl border border-line bg-void/70 p-6">
+        <h3 class="font-display text-lg font-bold">{tr('contact.clients')}</h3>
+        <p class="mt-1 text-sm text-muted">{tr('contact.clients.text')}</p>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      {
+        links.linkedin && (
+          <ButtonLink href={links.linkedin} icon="linkedin" external externalLabel={ext}>
+            LinkedIn
+          </ButtonLink>
+        )
+      }
+      {
+        links.github && (
+          <ButtonLink href={links.github} icon="github" variant="ghost" external externalLabel={ext}>
+            GitHub
+          </ButtonLink>
+        )
+      }
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import StackChips from '../ui/StackChips.astro';
+import Icon from '../ui/Icon.astro';
+import { getLangFromUrl, useTranslations, t, casePath } from '@/i18n/ui';
+import { categoryColor } from '@/lib/categories';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const p = project.data;
+const lang = getLangFromUrl(Astro.url);
+const tr = useTranslations(lang);
+const href = casePath(project.id, lang);
+---
+
+<!-- Toda la tarjeta es clicable con un único enlace (el título) que se estira con ::after. -->
+<article
+  class="case-card group relative flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white/[0.03] p-6 transition-colors duration-300 focus-within:border-[var(--cat)]/60 hover:border-[var(--cat)]/50 sm:p-8"
+  style={`--cat:${categoryColor[p.category]}`}
+>
+  <span
+    class="pointer-events-none absolute -top-24 -right-24 size-48 rounded-full bg-[var(--cat)] opacity-10 blur-3xl transition-opacity duration-500 group-hover:opacity-25"
+    aria-hidden="true"></span>
+
+  <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+    <span class="rounded-full bg-[var(--cat)]/15 px-2.5 py-1 font-semibold text-[var(--cat)]">
+      {tr(`projects.cat.${p.category}`)}
+    </span>
+    {p.context && <span class="text-muted">{t(p.context, lang)}</span>}
+  </p>
+
+  <h3 class="mt-4 text-xl font-bold sm:text-2xl">
+    <a href={href} class="outline-none after:absolute after:inset-0 after:rounded-3xl focus-visible:after:ring-2 focus-visible:after:ring-[var(--cat)]">
+      {t(p.title, lang)}
+    </a>
+  </h3>
+  <p class="mt-3 text-muted">{t(p.summary, lang)}</p>
+
+  {
+    p.results.length > 0 && (
+      <dl class="mt-6 grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-4">
+        {p.results.map((r) => (
+          <div class="flex flex-col-reverse justify-end">
+            <dt class="text-xs text-muted">{t(r.label, lang)}</dt>
+            <dd class="font-display text-xl font-bold whitespace-nowrap text-ink sm:text-2xl">{r.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+
+  <div class="mt-auto pt-6">
+    <StackChips refs={p.stack} label={tr('projects.stack')} />
+    <p class="mt-5 inline-flex items-center gap-1.5 font-display text-sm font-semibold text-[var(--cat)]" aria-hidden="true">
+      {tr('projects.view')}
+      <Icon name="arrow-right" size={16} class="transition-transform duration-300 group-hover:translate-x-1" />
+    </p>
+  </div>
+</article>

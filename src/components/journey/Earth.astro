@@ -1,0 +1,149 @@
+---
+/**
+ * La Tierra: destino final del viaje y fondo de la sección de contacto.
+ * Esfera hecha con capas HTML (océano con gradiente, continentes y nubes en SVG inline),
+ * así la rotación es un translateX en el compositor y solo corre mientras se ve.
+ * Incluye al astronauta aterrizado (aparece cuando journey.ts marca el contacto como visible).
+ */
+import AstronautLottie from './AstronautLottie.astro';
+
+// Continentes estilizados (originales) en una franja de 1000×500; se repiten para el bucle.
+const land = [
+  'M80 120C120 70 220 60 260 100s20 100-30 130c-30 20-20 70-60 90s-70-30-60-70S50 170 80 120Z',
+  'M380 60c50-20 120-10 140 30s-20 60-50 70-20 50-50 60-60-30-50-70-30-60 10-90Z',
+  'M560 180c60-30 160-20 200 20s20 100-40 120c-40 15-60 60-110 50s-30-70-50-100-50-60 0-90Z',
+  'M800 70c50-20 140-10 160 30s-30 60-60 50-60 10-80-10-50-50-20-70Z',
+  'M300 300c30-15 70-5 80 20s-20 40-50 40-60-45-30-60Z',
+];
+// Nubes: grupos de elipses que se difuminan con CSS.
+const clouds = [
+  [120, 70, 70, 16], [175, 62, 50, 14], [80, 78, 40, 10],
+  [470, 160, 60, 12], [520, 154, 40, 11],
+  [720, 52, 80, 15], [790, 46, 46, 12], [660, 58, 36, 9],
+  [230, 236, 50, 10], [270, 230, 32, 9],
+  [840, 270, 64, 12], [890, 264, 38, 10],
+];
+---
+
+<div class="earth-wrap" aria-hidden="true">
+  <div class="lander" data-lander>
+    <AstronautLottie role="lander" />
+  </div>
+  <div class="earth" data-earth>
+    <div class="strip land">
+      <svg viewBox="0 0 2000 500" preserveAspectRatio="none">
+        <g fill="#3fcf8e">
+          {land.map((d) => <path d={d} />)}
+          <g transform="translate(1000 0)">{land.map((d) => <path d={d} />)}</g>
+        </g>
+        <g fill="#2a9d6e" opacity="0.7">
+          {land.map((d) => <path d={d} transform="translate(14 10) scale(0.92)" />)}
+          <g transform="translate(1000 0)">{land.map((d) => <path d={d} transform="translate(14 10) scale(0.92)" />)}</g>
+        </g>
+      </svg>
+    </div>
+    <div class="strip clouds">
+      <svg viewBox="0 0 2000 500" preserveAspectRatio="none">
+        <g fill="#fff" opacity="0.55">
+          {clouds.map(([cx, cy, rx, ry]) => <ellipse cx={cx} cy={cy} rx={rx} ry={ry} />)}
+          <g transform="translate(1000 0)">{clouds.map(([cx, cy, rx, ry]) => <ellipse cx={cx} cy={cy} rx={rx} ry={ry} />)}</g>
+        </g>
+      </svg>
+    </div>
+    <div class="shade"></div>
+  </div>
+</div>
+
+<style>
+  .earth-wrap {
+    --d: min(170vw, 80rem);
+    position: absolute;
+    inset: auto 0 0;
+    height: calc(var(--d) * 0.3);
+    pointer-events: none;
+  }
+
+  .earth {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: var(--d);
+    aspect-ratio: 1;
+    translate: -50% 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 14%, #5aa8ff, #2463c9 30%, #0f3279 58%, #061636 80%);
+    box-shadow:
+      0 -24px 110px -6px rgb(94 230 255 / 0.55),
+      0 -2px 28px rgb(160 225 255 / 0.55);
+  }
+
+  .strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 34%;
+    will-change: transform;
+  }
+  .strip svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .clouds {
+    top: 2%;
+    filter: blur(4px);
+  }
+  .earth:global(.is-spinning) .land {
+    animation: spin 140s linear infinite;
+  }
+  .earth:global(.is-spinning) .clouds {
+    animation: spin 90s linear infinite;
+  }
+  @keyframes spin {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Sombra esférica + borde de atmósfera iluminado */
+  .shade {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 10%, transparent 34%, rgb(2 6 24 / 0.55) 62%, rgb(2 6 24 / 0.9) 80%);
+    box-shadow: inset 0 14px 40px rgb(170 230 255 / 0.55);
+  }
+
+  .lander {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    --s: clamp(96px, 11vw, 140px);
+    /* El astronauta ocupa ~el 77% superior del lienzo Lottie: se baja para apoyarlo en la Tierra. */
+    bottom: calc(100% - var(--s) * 0.24);
+    width: var(--s);
+    translate: -50% 0;
+    opacity: 0;
+    transform: translateY(-50vh) rotate(-20deg);
+    transition:
+      opacity 0.5s ease,
+      transform 1.1s var(--ease-out-expo);
+  }
+  .lander:global(.is-visible) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.15s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lander {
+      opacity: 1;
+      transform: none;
+    }
+    .strip {
+      animation: none !important;
+    }
+  }
+</style>

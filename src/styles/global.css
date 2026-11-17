@@ -1,0 +1,100 @@
+@import 'tailwindcss';
+
+/* Tokens del viaje: del espacio profundo a la atmósfera terrestre. */
+@theme {
+  --font-display: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --color-void: #04050c;
+  --color-space: #070a1a;
+  --color-orbit: #0b1330;
+  --color-stratosphere: #12306b;
+  --color-sky: #2f6fd0;
+
+  --color-ink: #e9edf9;
+  --color-muted: #a3acc7;
+  --color-line: rgb(255 255 255 / 0.1);
+
+  --color-signal: #5ee6ff; /* acento principal: datos / enlaces */
+  --color-thrust: #ff9a5a; /* propulsor / CTA de clientes */
+  --color-aurora: #8b7bff;
+  --color-terra: #3fcf8e;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100dvh;
+    background: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-signal) 35%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Descenso: transparente arriba (se ven las estrellas fijas) y cada vez más atmósfera hacia la Tierra. */
+.journey {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 40%,
+    rgb(11 19 48 / 0.55) 62%,
+    rgb(14 37 88 / 0.85) 82%,
+    #12306b 92%,
+    #1d4c9c 100%
+  );
+}
+
+.section-stop {
+  scroll-margin-top: 4rem;
+}
+
+@utility container-page {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+}

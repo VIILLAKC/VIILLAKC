@@ -1,0 +1,75 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Puerta de calidad: si Lighthouse (≥ 95 en las 4 categorías, móvil y escritorio)
+  # o el QA de interfaz fallan, no se despliega.
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - name: Lighthouse CI (móvil)
+        run: npx lhci autorun
+      - name: Lighthouse CI (escritorio)
+        run: npx lhci autorun
+        env:
+          LH_FORM_FACTOR: desktop
+
+      - name: QA de interfaz (responsive, teclado, reduced motion)
+        run: |
+          npx astro preview --port 4321 &
+          for i in $(seq 1 30); do curl -sf http://localhost:4321/VIILLAKC/ > /dev/null && break; sleep 1; done
+          npm run qa
+
+      - name: Reportes de Lighthouse
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: lighthouse-reports/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  build:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: withastro/action@v4
+        with:
+          node-version: 24
+          package-manager: npm
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: [quality, build]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,7 +1,7 @@
 # Israel Villa · Senior Data Engineer <img src='public/favicon.ico' width='40' height='40'>
 
-**I build reliable data platforms and automate the processes that slow your business down.**
-Diseño plataformas de datos confiables y automatizo los procesos que frenan a tu empresa.
+**I build reliable data platforms at scale: lakehouse, pipelines and ML/GenAI in production.**
+Construyo plataformas de datos confiables a escala: lakehouse, pipelines y ML/GenAI en producción.
 
 🌐 **Portfolio:** [viillakc.github.io/VIILLAKC](https://viillakc.github.io/VIILLAKC/) · [English](https://viillakc.github.io/VIILLAKC/en/)
 💼 [LinkedIn](https://www.linkedin.com/in/israel-v-8b50381b5) · 📍 Mexico City
@@ -14,13 +14,13 @@ Computer engineer with **4 years in production** building scalable pipelines, in
 |:---:|:---:|:---:|
 | production pipelines I built | pipelines shipped as a team | accounts processed per run |
 
-## What I do
+## Focus areas
 
-- ⚙️ **Process automation:** remove repetitive manual work and connect your systems.
-- 🗄️ **Data pipelines & platform:** reliable, governed data that's ready for decisions.
-- 🤖 **Applied AI & GenAI:** assistants and models that work on your own data.
+- 🗄️ **Data platform & lakehouse:** idempotent, governed pipelines on a medallion architecture (Databricks, PySpark, Delta Lake, Prefect).
+- 🤖 **ML & GenAI in production:** RAG assistants, prediction models and CV/OCR services built on top of the data platform.
+- 🔗 **Integration & automation:** cross-system workflows with Python and APIs, e.g. customer onboarding from 2–3 days to ~15 minutes.
 
-**Open to:** Senior Data Engineer roles and business automation projects.
+**Open to** conversations about Senior Data Engineer and Data Platform roles · remote or hybrid in Mexico City.
 
 ## Stack
 

@@ -101,10 +101,12 @@ const services = defineCollection({
     title: localized(40),
     tagline: localized(110),
     description: localized(320),
-    outcomes: z.array(localized(90)).min(2).max(4),
-    deliverables: z.array(localized(70)).min(2).max(5),
+    /** Logros medibles que respaldan la especialidad (salen de los casos). */
+    evidence: z.array(localized(90)).min(2).max(4),
+    /** Prácticas técnicas habituales en esta especialidad. */
+    practices: z.array(localized(70)).min(2).max(5),
     stack: z.array(reference('skills')).max(8),
-    /** Apariencia del planeta que representa el servicio. */
+    /** Apariencia del planeta que representa la especialidad. */
     planet: z.object({
       color: hexColor,
       glow: hexColor,

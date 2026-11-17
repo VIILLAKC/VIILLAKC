@@ -1,9 +1,9 @@
 /**
  * Datos estructurados (schema.org / JSON-LD) generados desde los mismos JSON de contenido.
- * Portada: ProfilePage + Person + ProfessionalService. Casos: Article + BreadcrumbList.
+ * Portada: ProfilePage + Person. Casos: Article + BreadcrumbList.
  */
 import type { CollectionEntry } from 'astro:content';
-import { getProfile, getServices, getSkills, resolveStack } from './content';
+import { getProfile, getSkills, resolveStack } from './content';
 import { casePath, localizePath, t, ui, type Lang } from '@/i18n/ui';
 
 const SITE = 'https://viillakc.github.io';
@@ -30,7 +30,6 @@ async function person(lang: Lang) {
 }
 
 export async function homeJsonLd(lang: Lang) {
-  const services = await getServices();
   return {
     '@graph': [
       {
@@ -42,24 +41,7 @@ export async function homeJsonLd(lang: Lang) {
         inLanguage: lang,
         mainEntity: { '@id': personId() },
       },
-      await person(lang),
-      {
-        '@type': 'ProfessionalService',
-        '@id': `${homeUrl('es')}#service`,
-        name: lang === 'es' ? 'Israel Villa · Datos, automatización e IA aplicada' : 'Israel Villa · Data, automation & applied AI',
-        url: homeUrl(lang),
-        image: abs(`${localizePath('', 'es')}og/${lang}/home.png`),
-        founder: { '@id': personId() },
-        areaServed: ['MX', 'Worldwide'],
-        hasOfferCatalog: {
-          '@type': 'OfferCatalog',
-          name: ui[lang]['services.title'],
-          itemListElement: services.map(({ data }) => ({
-            '@type': 'Offer',
-            itemOffered: { '@type': 'Service', name: t(data.title, lang), description: t(data.tagline, lang) },
-          })),
-        },
-      },
+      { ...(await person(lang)), image: abs(`${localizePath('', 'es')}og/${lang}/home.png`) },
     ],
   };
 }

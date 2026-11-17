@@ -142,6 +142,8 @@ Reglas para que **agregar un proyecto no rompa el diseño**:
 
 ## 8. Decisiones tomadas
 
+- **Reenfoque a contratación (2026-11-17):** el sitio se dirige solo a empresas que contratan. Servicios → *Especialidades* (evidencia medible + cómo trabajo, sin entregables ni CTA de venta); orden Sobre mí → Experiencia → Proyectos → Especialidades → Stack → Contacto; contacto con rol, modalidad e idiomas y disponibilidad discreta ("abierto a conversar"); JSON-LD sin `ProfessionalService`; OG con "Data Platform · Lakehouse · ML/GenAI". Sin CV descargable por ahora (el sitio está anonimizado). Las menciones de dos públicos más abajo quedan como historial.
+
 | Tema | Decisión |
 |---|---|
 | Stack | Astro + Tailwind v4 |

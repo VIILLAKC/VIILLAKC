@@ -1,79 +1,77 @@
 [
   {
-    "id": "automatizacion-procesos",
-    "order": 1,
-    "title": { "es": "Automatización de procesos", "en": "Process automation" },
-    "tagline": {
-      "es": "Elimina el trabajo manual repetitivo y conecta tus sistemas.",
-      "en": "Remove repetitive manual work and connect your systems."
-    },
-    "description": {
-      "es": "Diseño flujos automáticos con n8n y Python que mueven datos entre tus herramientas, generan reportes y disparan alertas sin intervención humana. Cada flujo queda documentado, monitoreado y listo para crecer.",
-      "en": "I design automated workflows with n8n and Python that move data between your tools, generate reports and trigger alerts with no manual steps. Every workflow is documented, monitored and ready to scale."
-    },
-    "outcomes": [
-      { "es": "Horas de trabajo manual recuperadas cada semana", "en": "Hours of manual work recovered every week" },
-      { "es": "Menos errores de captura y copia entre sistemas", "en": "Fewer copy-paste and data-entry errors" },
-      { "es": "Reportes que llegan solos y a tiempo", "en": "Reports that arrive on their own, on time" }
-    ],
-    "deliverables": [
-      { "es": "Diagnóstico y mapa del proceso", "en": "Process assessment and map" },
-      { "es": "Flujos en n8n / Python en producción", "en": "n8n / Python workflows in production" },
-      { "es": "Monitoreo y alertas de fallos", "en": "Failure monitoring and alerts" },
-      { "es": "Documentación y capacitación", "en": "Documentation and handover training" }
-    ],
-    "stack": ["n8n", "python", "fastapi", "docker", "postgresql"],
-    "planet": { "color": "#ff9a5a", "glow": "#ffcf8a", "size": "md", "ring": false }
-  },
-  {
     "id": "plataforma-datos",
-    "order": 2,
-    "title": { "es": "Pipelines y plataforma de datos", "en": "Data pipelines & platform" },
+    "order": 1,
+    "title": { "es": "Plataforma de datos y lakehouse", "en": "Data platform & lakehouse" },
     "tagline": {
-      "es": "Datos confiables, gobernados y listos para decidir.",
-      "en": "Reliable, governed data that's ready for decisions."
+      "es": "Pipelines idempotentes, gobernados y auditables a escala.",
+      "en": "Idempotent, governed and auditable pipelines at scale."
     },
     "description": {
-      "es": "Construyo pipelines ETL/ELT idempotentes sobre un lakehouse con arquitectura medallion (Bronze, Silver, Gold), con calidad de datos, orquestación y monitoreo. Desde una base de datos aislada hasta millones de registros por corrida.",
-      "en": "I build idempotent ETL/ELT pipelines on a medallion lakehouse (Bronze, Silver, Gold) with data quality checks, orchestration and monitoring. From a single database to millions of records per run."
+      "es": "Diseño y opero pipelines ETL/ELT sobre lakehouse con arquitectura medallion (Bronze, Silver, Gold): calidad de datos, orquestación, monitoreo y optimización de Spark. Desde integrar sistemas heterogéneos hasta millones de registros por corrida.",
+      "en": "I design and run ETL/ELT pipelines on a medallion lakehouse (Bronze, Silver, Gold): data quality, orchestration, monitoring and Spark tuning. From integrating heterogeneous systems to millions of records per run."
     },
-    "outcomes": [
-      { "es": "Una sola fuente de verdad para tu negocio", "en": "A single source of truth for your business" },
-      { "es": "Cargas reproducibles y auditables", "en": "Reproducible, auditable loads" },
-      { "es": "Procesos que escalan sin reescribirse", "en": "Processes that scale without rewrites" }
+    "evidence": [
+      { "es": "~30 pipelines productivos propios en una plataforma de 80+", "en": "~30 production pipelines I built on an 80+ pipeline platform" },
+      { "es": "~10M de cuentas asignadas por corrida en ~5 min", "en": "~10M accounts allocated per run in ~5 min" },
+      { "es": "Migración crítica entregada en la mitad del plazo", "en": "Critical migration delivered in half the planned time" }
     ],
-    "deliverables": [
-      { "es": "Arquitectura del lakehouse", "en": "Lakehouse architecture" },
-      { "es": "Pipelines orquestados con Prefect", "en": "Prefect-orchestrated pipelines" },
-      { "es": "Validaciones de calidad de datos", "en": "Data quality validations" },
-      { "es": "Monitoreo de ejecuciones", "en": "Run monitoring" }
+    "practices": [
+      { "es": "Arquitectura medallion y modelado", "en": "Medallion architecture and modeling" },
+      { "es": "Orquestación con Prefect", "en": "Orchestration with Prefect" },
+      { "es": "Validaciones de calidad y conciliación", "en": "Data quality checks and reconciliation" },
+      { "es": "Optimización de jobs Spark", "en": "Spark job optimization" }
     ],
     "stack": ["pyspark", "databricks", "delta-lake", "prefect", "sql", "aws"],
     "planet": { "color": "#5ee6ff", "glow": "#9ff2ff", "size": "lg", "ring": true }
   },
   {
     "id": "ia-aplicada",
-    "order": 3,
-    "title": { "es": "IA aplicada y GenAI", "en": "Applied AI & GenAI" },
+    "order": 2,
+    "title": { "es": "ML y GenAI en producción", "en": "ML & GenAI in production" },
     "tagline": {
-      "es": "Asistentes y modelos que trabajan sobre tus propios datos.",
-      "en": "Assistants and models that work on your own data."
+      "es": "Del prototipo a sistemas que usan las áreas de negocio.",
+      "en": "From prototype to systems the business actually uses."
     },
     "description": {
-      "es": "Llevo la IA del prototipo a producción: asistentes que responden con tus datos (RAG con pgvector), modelos de clasificación y predicción, y visión por computadora/OCR para digitalizar documentos e inspección.",
-      "en": "I take AI from prototype to production: assistants that answer from your data (RAG with pgvector), classification and prediction models, and computer vision/OCR for document digitization and inspection."
+      "es": "Llevo modelos a producción sobre la plataforma de datos: asistentes GenAI con RAG (pgvector) para consultar KPIs, modelos de clasificación y predicción, y visión por computadora/OCR integrados en microservicios.",
+      "en": "I take models to production on top of the data platform: GenAI assistants with RAG (pgvector) to query KPIs, classification and prediction models, and computer vision/OCR integrated into microservices."
     },
-    "outcomes": [
-      { "es": "Respuestas sobre tus KPIs en lenguaje natural", "en": "Natural-language answers about your KPIs" },
-      { "es": "Decisiones priorizadas con modelos predictivos", "en": "Decisions prioritized with predictive models" },
-      { "es": "Documentos e imágenes convertidos en datos", "en": "Documents and images turned into data" }
+    "evidence": [
+      { "es": "2 soluciones GenAI en producción usadas por directivos", "en": "2 GenAI solutions in production used by executives" },
+      { "es": "Modelo de horizonte de pago sobre ~60K casos al mes", "en": "Payment-horizon model over ~60K cases per month" },
+      { "es": "Microservicios de imagen 3x más rápidos", "en": "Imaging microservices running 3x faster" }
     ],
-    "deliverables": [
-      { "es": "Prueba de concepto medible", "en": "Measurable proof of concept" },
-      { "es": "Modelo o asistente desplegado", "en": "Deployed model or assistant" },
-      { "es": "Evaluación y métricas de calidad", "en": "Evaluation and quality metrics" }
+    "practices": [
+      { "es": "RAG y evaluación de respuestas", "en": "RAG and answer evaluation" },
+      { "es": "Features desde el lakehouse", "en": "Features built from the lakehouse" },
+      { "es": "Despliegue como servicios y APIs", "en": "Deployment as services and APIs" }
     ],
     "stack": ["llm-apis", "rag", "pgvector", "sentence-transformers", "xgboost", "yolo", "ocr"],
     "planet": { "color": "#8b7bff", "glow": "#c3b8ff", "size": "md", "ring": true }
+  },
+  {
+    "id": "automatizacion-procesos",
+    "order": 3,
+    "title": { "es": "Integración y automatización", "en": "Integration & automation" },
+    "tagline": {
+      "es": "Procesos operativos convertidos en flujos confiables.",
+      "en": "Operational processes turned into reliable workflows."
+    },
+    "description": {
+      "es": "Automatizo procesos entre sistemas con Python, APIs y n8n: altas de clientes, reportes y alertas que antes eran manuales. Cada flujo queda versionado, monitoreado y documentado para que el equipo lo opere.",
+      "en": "I automate cross-system processes with Python, APIs and n8n: customer onboarding, reports and alerts that used to be manual. Every workflow is versioned, monitored and documented so the team can run it."
+    },
+    "evidence": [
+      { "es": "Alta de clientes de 2–3 días a ~15 minutos", "en": "Customer onboarding from 2–3 days to ~15 minutes" },
+      { "es": "5 entornos empresariales desplegados con el mismo flujo", "en": "5 enterprise environments deployed with the same workflow" }
+    ],
+    "practices": [
+      { "es": "Integración vía APIs y bases de datos", "en": "Integration through APIs and databases" },
+      { "es": "Monitoreo y alertas de fallos", "en": "Failure monitoring and alerts" },
+      { "es": "Documentación y traspaso al equipo", "en": "Documentation and team handover" }
+    ],
+    "stack": ["python", "fastapi", "n8n", "docker", "postgresql"],
+    "planet": { "color": "#ff9a5a", "glow": "#ffcf8a", "size": "md", "ring": false }
   }
 ]

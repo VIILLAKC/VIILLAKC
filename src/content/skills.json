@@ -38,7 +38,7 @@
   { "id": "yolo", "name": "YOLO", "category": "ml-ai" },
   { "id": "ocr", "name": "OCR", "category": "ml-ai" },
 
-  { "id": "n8n", "name": "n8n", "category": "automation", "core": true },
+  { "id": "n8n", "name": "n8n", "category": "automation" },
   { "id": "fastapi", "name": "FastAPI", "category": "automation", "icon": "fastapi", "core": true },
   { "id": "celery", "name": "Celery", "category": "automation" },
   { "id": "nodejs", "name": "Node.js", "category": "automation" },

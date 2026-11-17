@@ -7,8 +7,8 @@
       "en": "Senior Data Engineer"
     },
     "tagline": {
-      "es": "Diseño plataformas de datos confiables y automatizo los procesos que frenan a tu empresa.",
-      "en": "I build reliable data platforms and automate the processes that slow your business down."
+      "es": "Construyo plataformas de datos confiables a escala: lakehouse, pipelines y ML/GenAI en producción.",
+      "en": "I build reliable data platforms at scale: lakehouse, pipelines and ML/GenAI in production."
     },
     "summary": [
       {
@@ -25,8 +25,8 @@
       "en": "Mexico City, Mexico"
     },
     "openTo": {
-      "es": "Roles de Senior Data Engineer y proyectos de automatización empresarial",
-      "en": "Senior Data Engineer roles and business automation projects"
+      "es": "Abierto a conversar sobre roles Senior Data Engineer",
+      "en": "Open to conversations about Senior Data Engineer roles"
     },
     "stats": [
       { "value": "4", "label": { "es": "años en producción", "en": "years in production" } },

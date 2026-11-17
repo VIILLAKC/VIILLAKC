@@ -33,7 +33,7 @@ export const GET: APIRoute = async ({ props }) => {
         footer: domain,
       })
     : await renderOg({
-        eyebrow: lang === 'es' ? 'Datos · Automatización · IA aplicada' : 'Data · Automation · Applied AI',
+        eyebrow: 'Data Platform · Lakehouse · ML/GenAI',
         title: t(profile.headline, lang),
         subtitle: t(profile.tagline, lang),
         footer: domain,

@@ -1,4 +1,4 @@
-# Welcome to My Portfolio! <img src='assets/ico/coding.ico' width='50' height='50'>
+# Welcome to My Portfolio! <img src='public/favicon.ico' width='50' height='50'>
 
 ## https://viillakc.github.io/VIILLAKC/
 
@@ -16,17 +16,17 @@ Curious minds, collaborators, and recruiters, please feel free to connect! Let's
 
 ## Skill Highlights
 <div align="center">
-    <img src='assets/svg/python.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/ruby.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/java.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/typescript.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/aws.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/docker.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/angular.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/react.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/microsoft-sql.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/mongodb.svg' width='50' height='50' style="margin-right: 10px;">
-    <img src='assets/svg/informix.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/python.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/ruby.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/java.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/typescript.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/aws.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/docker.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/angular.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/react.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/microsoft-sql.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/mongodb.svg' width='50' height='50' style="margin-right: 10px;">
+    <img src='src/assets/tech/informix.svg' width='50' height='50' style="margin-right: 10px;">
 </div>
 
 <br>

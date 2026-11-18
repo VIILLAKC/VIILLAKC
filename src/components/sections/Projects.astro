@@ -1,7 +1,7 @@
 ---
 import Section from '../ui/Section.astro';
 import CaseCard from '../projects/CaseCard.astro';
-import LabCard from '../projects/LabCard.astro';
+import Disclosure from '../ui/Disclosure.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/ui';
 import { getProjects } from '@/lib/content';
 import { projectCategories } from '@/content.config';
@@ -10,8 +10,11 @@ import { categoryColor } from '@/lib/categories';
 const lang = getLangFromUrl(Astro.url);
 const tr = useTranslations(lang);
 // Destacados primero; dentro de cada grupo, el orden del JSON.
-const cases = (await getProjects('case-study')).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
-const lab = await getProjects('lab');
+const cases = (await getProjects()).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+// Los destacados se ven siempre; el resto queda tras "Ver más" para no alargar la página.
+const featured = cases.filter((c) => c.data.featured);
+const shown = featured.length > 0 ? featured : cases;
+const extra = cases.slice(shown.length);
 
 // Solo se ofrecen filtros de categorías que tienen casos.
 const filters = projectCategories
@@ -39,7 +42,7 @@ const filters = projectCategories
 
   <ul class="grid gap-6 md:grid-cols-2" data-case-list>
     {
-      cases.map((p) => (
+      shown.map((p) => (
         <li data-category={p.data.category} style={`view-transition-name: case-${p.id}`}>
           <CaseCard project={p} />
         </li>
@@ -48,18 +51,22 @@ const filters = projectCategories
   </ul>
 
   {
-    lab.length > 0 && (
-      <div class="mt-20">
-        <h3 class="font-display text-xl font-bold">{tr('projects.lab.title')}</h3>
-        <p class="mt-1 text-muted">{tr('projects.lab.intro')}</p>
-        <ul class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {lab.map((p) => (
-            <li>
-              <LabCard project={p} />
+    extra.length > 0 && (
+      <Disclosure
+        more={tr('projects.more').replace('{n}', String(extra.length))}
+        less={tr('projects.less')}
+        class="mt-6"
+        contentClass="pt-4"
+        data-case-more
+      >
+        <ul class="grid gap-6 md:grid-cols-2" data-case-list>
+          {extra.map((p) => (
+            <li data-category={p.data.category} style={`view-transition-name: case-${p.id}`}>
+              <CaseCard project={p} />
             </li>
           ))}
         </ul>
-      </div>
+      </Disclosure>
     )
   }
 </Section>
@@ -69,6 +76,9 @@ const filters = projectCategories
   const group = document.querySelector<HTMLElement>('[data-case-filters]');
   const items = [...document.querySelectorAll<HTMLElement>('[data-case-list] > li')];
   const status = document.querySelector<HTMLElement>('[data-case-status]');
+  const more = document.querySelector<HTMLDetailsElement>('[data-case-more]');
+  const moreItems = more ? [...more.querySelectorAll<HTMLElement>('[data-case-list] > li')] : [];
+  let userOpen = more?.open ?? false;
 
   if (group && items.length) {
     group.hidden = false;
@@ -81,6 +91,19 @@ const filters = projectCategories
         const match = filter === 'all' || li.dataset.category === filter;
         li.hidden = !match;
         if (match) shown++;
+      }
+      // Con un filtro activo se muestran todos los casos que coinciden, incluidos los plegados.
+      if (more) {
+        if (filter === 'all') {
+          more.hidden = false;
+          more.classList.remove('is-filtering');
+          more.open = userOpen;
+        } else {
+          if (!more.classList.contains('is-filtering')) userOpen = more.open;
+          more.classList.add('is-filtering');
+          more.hidden = !moreItems.some((li) => !li.hidden);
+          more.open = true;
+        }
       }
       buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
       if (status) status.textContent = (status.dataset.template ?? '').replace('{n}', String(shown));
@@ -97,6 +120,14 @@ const filters = projectCategories
 </script>
 
 <style>
+  /* Durante un filtro el "Ver más" no aplica: se oculta su resumen y el contenido queda abierto. */
+  :global([data-case-more].is-filtering > summary) {
+    display: none;
+  }
+  :global([data-case-more].is-filtering) {
+    margin-top: 0.5rem;
+  }
+
   .filter-btn {
     --cat: var(--color-signal);
     display: inline-flex;

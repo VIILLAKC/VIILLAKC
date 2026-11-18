@@ -1,16 +1,18 @@
 ---
 import Section from '../ui/Section.astro';
 import StackChips from '../ui/StackChips.astro';
+import Disclosure from '../ui/Disclosure.astro';
 import { getLangFromUrl, useTranslations, t, formatYearMonth } from '@/i18n/ui';
 import { getExperience } from '@/lib/content';
 
 const lang = getLangFromUrl(Astro.url);
 const tr = useTranslations(lang);
 const jobs = await getExperience();
+const moreLabel = (n: number) => (n === 1 ? tr('experience.more.one') : tr('experience.more.other').replace('{n}', String(n)));
 ---
 
 <Section id="experience" landmark="gas-giant" altitude={tr('alt.experience')} title={tr('experience.title')}>
-  <ol class="relative ml-2 border-l border-line sm:ml-4">
+  <ol class="experience-list relative ml-2 border-l border-line sm:ml-4">
     {
       jobs.map(({ data: j }) => (
         <li class="relative pb-12 pl-8 last:pb-0 sm:pl-12">
@@ -32,15 +34,33 @@ const jobs = await getExperience();
             {j.location && <span class="text-muted"> · {t(j.location, lang)}</span>}
           </p>
           {j.highlights.length > 0 && (
-            <ul class="mt-4 max-w-3xl list-disc space-y-2 pl-5 text-muted marker:text-signal">
-              {j.highlights.map((h) => (
-                <li>{t(h, lang)}</li>
-              ))}
+            <ul class="mt-4 max-w-3xl list-disc pl-5 text-muted marker:text-signal">
+              <li>{t(j.highlights[0], lang)}</li>
             </ul>
           )}
-          <StackChips refs={j.stack} class="mt-4" />
+          {j.highlights.length > 1 ? (
+            <Disclosure more={moreLabel(j.highlights.length - 1)} less={tr('experience.less')} class="mt-2" contentClass="pb-1">
+              <ul class="max-w-3xl list-disc space-y-2 pl-5 text-muted marker:text-signal">
+                {j.highlights.slice(1).map((h) => (
+                  <li>{t(h, lang)}</li>
+                ))}
+              </ul>
+              <StackChips refs={j.stack} class="mt-4" />
+            </Disclosure>
+          ) : (
+            <StackChips refs={j.stack} class="mt-4" />
+          )}
         </li>
       ))
     }
   </ol>
 </Section>
+
+<style>
+  /* El texto pasa por encima del gigante gaseoso: una sombra suave lo separa de las bandas claras. */
+  :global(#experience :is(h2, h3, p, li, summary)) {
+    text-shadow:
+      0 1px 2px rgb(4 5 12 / 0.9),
+      0 0 14px rgb(4 5 12 / 0.85);
+  }
+</style>

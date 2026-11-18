@@ -176,6 +176,14 @@ const rocks = [
     clip-path: inset(50% 0 0 0);
   }
 
+  /* Velo sobre el planeta para que el texto de Trayectoria se lea sobre las bandas claras. */
+  .landmark--gas-giant::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(4 5 12 / 0.6), rgb(4 5 12 / 0.4) 45%, transparent 75%);
+  }
+
   /* ---- Cinturón de asteroides y Marte ---- */
   .rock {
     left: var(--x);

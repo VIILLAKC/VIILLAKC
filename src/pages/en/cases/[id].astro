@@ -7,7 +7,7 @@ import { getLangFromUrl, t } from '@/i18n/ui';
 import { caseJsonLd } from '@/lib/structured-data';
 
 export const getStaticPaths = (async () => {
-  const cases = await getProjects('case-study');
+  const cases = await getProjects();
   return cases.map((project) => ({ params: { id: project.id }, props: { project } }));
 }) satisfies GetStaticPaths;
 

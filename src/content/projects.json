@@ -188,50 +188,5 @@
       { "value": "~80%", "label": { "es": "precisión OCR/CV", "en": "OCR/CV precision" } }
     ],
     "stack": ["python", "django", "fastapi", "redis", "celery", "ocr"]
-  },
-  {
-    "id": "fastapi-template",
-    "order": 100,
-    "kind": "lab",
-    "category": "web",
-    "title": { "es": "FastAPI Template", "en": "FastAPI Template" },
-    "summary": {
-      "es": "Plantilla base para APIs con FastAPI, lista para clonar y arrancar nuevos servicios.",
-      "en": "Starter template for FastAPI services, ready to clone for new projects."
-    },
-    "stack": ["python", "fastapi", "docker"],
-    "links": { "repo": "https://github.com/VIILLAKC/FastAPI-Template" },
-    "image": "./images/fastapi-template.png",
-    "imageAlt": { "es": "Captura de la plantilla FastAPI", "en": "FastAPI template screenshot" }
-  },
-  {
-    "id": "batatabit",
-    "order": 101,
-    "kind": "lab",
-    "category": "web",
-    "title": { "es": "Batatabit", "en": "Batatabit" },
-    "summary": {
-      "es": "Landing responsiva con enfoque mobile-first.",
-      "en": "Responsive landing page built mobile-first."
-    },
-    "stack": ["html-css"],
-    "links": { "demo": "https://viillakc.github.io/VIILLAKC-responsiveDesign_Mobile_First/" },
-    "image": "./images/batatabit.png",
-    "imageAlt": { "es": "Captura del sitio Batatabit", "en": "Batatabit site screenshot" }
-  },
-  {
-    "id": "todo-app",
-    "order": 102,
-    "kind": "lab",
-    "category": "web",
-    "title": { "es": "TODO App", "en": "TODO App" },
-    "summary": {
-      "es": "Aplicación de tareas en el navegador.",
-      "en": "In-browser task manager app."
-    },
-    "stack": ["html-css"],
-    "links": { "demo": "https://viillakc.github.io/TODO/" },
-    "image": "./images/todo.png",
-    "imageAlt": { "es": "Captura de la TODO app", "en": "TODO app screenshot" }
   }
 ]

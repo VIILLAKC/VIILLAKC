@@ -52,8 +52,11 @@ const href = casePath(project.id, lang);
   }
 
   <div class="mt-auto pt-6">
-    <StackChips refs={p.stack} label={tr('projects.stack')} />
-    <p class="mt-5 inline-flex items-center gap-1.5 font-display text-sm font-semibold text-[var(--cat)]" aria-hidden="true">
+    {/* En móvil se omiten las tecnologías para acortar la tarjeta; siguen en la página del caso. */}
+    <div class="hidden sm:block">
+      <StackChips refs={p.stack} label={tr('projects.stack')} class="mb-5" />
+    </div>
+    <p class=" inline-flex items-center gap-1.5 font-display text-sm font-semibold text-[var(--cat)]" aria-hidden="true">
       {tr('projects.view')}
       <Icon name="arrow-right" size={16} class="transition-transform duration-300 group-hover:translate-x-1" />
     </p>

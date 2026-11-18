@@ -14,8 +14,8 @@ export async function getServices() {
 }
 
 /** Proyectos publicados (sin borradores), ordenados por `order`. */
-export async function getProjects(kind?: 'case-study' | 'lab') {
-  const all = await getCollection('projects', ({ data }) => !data.draft && (!kind || data.kind === kind));
+export async function getProjects() {
+  const all = await getCollection('projects', ({ data }) => !data.draft);
   return all.sort(byOrder);
 }
 

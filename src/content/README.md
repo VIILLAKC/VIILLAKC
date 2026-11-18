@@ -6,11 +6,10 @@ Todo lo que se muestra en el sitio sale de estos JSON. No hace falta tocar compo
 |---|---|
 | `profile.json` | Nombre, headline, bio, métricas del hero, idiomas, educación y enlaces de contacto (una sola entrada con `"id": "main"`) |
 | `services.json` | Especialidades (`evidence`: logros medibles; `practices`: cómo trabajo). Cada una se dibuja como un **satélite** en órbita terrestre |
-| `projects.json` | Casos de éxito (`case-study`) y proyectos personales (`lab`) |
+| `projects.json` | Casos de éxito (`case-study`) |
 | `experience.json` | Timeline laboral |
 | `skills.json` | Catálogo de tecnologías. Los `stack` de los demás archivos usan sus `id` |
 | `certifications.json` | Certificaciones obtenidas o en preparación |
-| `images/` | Imágenes de proyectos |
 
 Los esquemas (campos, tipos y límites) están en [`src/content.config.ts`](../content.config.ts).
 
@@ -41,20 +40,18 @@ Copia este bloque al final de `projects.json` (antes del `]`, separado con una c
   "results": [
     { "value": "-80%", "label": { "es": "tiempo de proceso", "en": "processing time" } }
   ],
-  "stack": ["n8n", "python"],
-  "links": { "repo": "https://github.com/...", "demo": "https://..." }
+  "stack": ["n8n", "python"]
 }
 ```
 
 | Campo | Valores / notas |
 |---|---|
-| `kind` | `case-study` (tarjeta grande + página propia en `/casos/<id>/` y `/en/cases/<id>/`, generada automáticamente; exige `problem` y `solution`; el `id` es la URL, así que no lo cambies una vez publicado) · `lab` (tarjeta compacta) |
+| `kind` | `case-study` (tarjeta grande + página propia en `/casos/<id>/` y `/en/cases/<id>/`, generada automáticamente; exige `problem` y `solution`; el `id` es la URL, así que no lo cambies una vez publicado) |
 | `category` | `data-engineering` · `automation` · `ai` · `web` (alimenta los filtros) |
 | `featured` | `true` lo muestra entre los destacados |
 | `draft` | `true` lo oculta sin borrarlo |
 | `results` | Máximo 4. `value` corto (máx. 14 caracteres) y **sin palabras de un idioma**, porque se muestra igual en ES y EN: `"3x"`, `"~15 min"`, `"177K USD"`. Las palabras van en `label` |
 | `stack` | Ids de `skills.json`. Si usas una tecnología nueva, agrégala primero ahí |
-| `image` | Opcional. Guarda la imagen en `images/` y escribe `"./images/archivo.png"` junto con `imageAlt`. Sin imagen se genera una portada automática |
 
 ## Agregar una tecnología
 

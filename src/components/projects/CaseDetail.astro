@@ -22,7 +22,7 @@ const profile = await getProfile();
 const stack = await resolveStack(p.stack);
 
 // Mismo orden que en la portada (destacados primero) para "anterior / siguiente".
-const cases = (await getProjects('case-study')).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const cases = (await getProjects()).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
 const i = cases.findIndex((c) => c.id === project.id);
 const prev = cases[(i - 1 + cases.length) % cases.length];
 const next = cases[(i + 1) % cases.length];

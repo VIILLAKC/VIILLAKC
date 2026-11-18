@@ -9,7 +9,7 @@ import { categoryColor } from '@/lib/categories';
 import { languages, t, ui, type Lang } from '@/i18n/ui';
 
 export const getStaticPaths = (async () => {
-  const cases = await getProjects('case-study');
+  const cases = await getProjects();
   return (Object.keys(languages) as Lang[]).flatMap((lang) => [
     { params: { lang, id: 'home' }, props: { lang, project: undefined } },
     ...cases.map((project) => ({ params: { lang, id: project.id }, props: { lang, project } })),

@@ -120,41 +120,30 @@ export const projectCategories = ['data-engineering', 'automation', 'ai', 'web']
 
 const projects = defineCollection({
   loader: load('projects'),
-  schema: ({ image }) =>
-    z
-      .object({
-        id: slug,
-        order: z.number().int().min(0),
-        /** case-study = caso de éxito con página propia; lab = proyecto personal compacto. */
-        kind: z.enum(['case-study', 'lab']),
-        featured: z.boolean().default(false),
-        draft: z.boolean().default(false),
-        category: z.enum(projectCategories),
-        title: localized(70),
-        summary: localized(220),
-        /** Contexto anonimizado, p. ej. "Empresa global de telecomunicaciones". */
-        context: localized(60).optional(),
-        year: yearMonth.optional(),
-        role: localized(60).optional(),
-        problem: localized(600).optional(),
-        solution: localized(900).optional(),
-        highlights: z.array(localized(160)).max(6).default([]),
-        results: z.array(metric).max(4).default([]),
-        stack: z.array(reference('skills')).min(1).max(10),
-        links: z
-          .object({
-            repo: z.url().optional(),
-            demo: z.url().optional(),
-          })
-          .default({}),
-        /** Ruta relativa a este JSON, p. ej. "./images/todo.png". Sin imagen se genera una portada. */
-        image: image().optional(),
-        imageAlt: localized(120).optional(),
-      })
-      .refine((p) => p.kind !== 'case-study' || (p.problem && p.solution), {
-        message: 'Un "case-study" necesita "problem" y "solution".',
-      })
-      .refine((p) => !p.image || p.imageAlt, { message: 'Si hay "image", agrega "imageAlt".' }),
+  schema: z
+    .object({
+      id: slug,
+      order: z.number().int().min(0),
+      /** case-study = caso de éxito con página propia en /casos/<id>/ y /en/cases/<id>/. */
+      kind: z.literal('case-study'),
+      featured: z.boolean().default(false),
+      draft: z.boolean().default(false),
+      category: z.enum(projectCategories),
+      title: localized(70),
+      summary: localized(220),
+      /** Contexto anonimizado, p. ej. "Empresa global de telecomunicaciones". */
+      context: localized(60).optional(),
+      year: yearMonth.optional(),
+      role: localized(60).optional(),
+      problem: localized(600).optional(),
+      solution: localized(900).optional(),
+      highlights: z.array(localized(160)).max(6).default([]),
+      results: z.array(metric).max(4).default([]),
+      stack: z.array(reference('skills')).min(1).max(10),
+    })
+    .refine((p) => p.problem && p.solution, {
+      message: 'Un "case-study" necesita "problem" y "solution".',
+    }),
 });
 
 const experience = defineCollection({

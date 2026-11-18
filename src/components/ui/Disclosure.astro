@@ -1,0 +1,52 @@
+---
+/**
+ * "Ver más" accesible sin JavaScript: <details> nativo con un resumen que cambia de texto al abrirse.
+ * El contenido plegado sigue en el HTML (SEO y búsqueda en la página lo encuentran y lo abren solos).
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  /** Texto con el bloque cerrado, p. ej. "Ver 4 logros más". */
+  more: string;
+  /** Texto con el bloque abierto, p. ej. "Ocultar logros". */
+  less: string;
+  class?: string;
+  /** Clases del contenido desplegado. */
+  contentClass?: string;
+  [attr: `data-${string}`]: unknown;
+}
+const { more, less, class: className = '', contentClass = '', ...attrs } = Astro.props;
+---
+
+<details class:list={['disclosure group', className]} {...attrs}>
+  <summary
+    class="inline-flex min-h-11 cursor-pointer list-none items-center gap-1.5 font-display text-sm font-semibold text-signal transition-colors select-none hover:text-ink [&::-webkit-details-marker]:hidden"
+  >
+    <span class="group-open:hidden">{more}</span>
+    <span class="hidden group-open:inline">{less}</span>
+    <Icon name="arrow-down" size={16} class="transition-transform duration-300 group-open:rotate-180" />
+  </summary>
+  <div class={contentClass}>
+    <slot />
+  </div>
+</details>
+
+<style>
+  /* Apertura suave donde el navegador sabe animar a height:auto; en el resto abre al instante. */
+  @supports (interpolate-size: allow-keywords) {
+    .disclosure {
+      interpolate-size: allow-keywords;
+    }
+    .disclosure::details-content {
+      height: 0;
+      overflow: clip;
+      overflow-clip-margin: 0.5rem;
+      transition:
+        height 0.35s var(--ease-out-expo),
+        content-visibility 0.35s allow-discrete;
+    }
+    .disclosure[open]::details-content {
+      height: auto;
+    }
+  }
+</style>
